@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
@@ -14,29 +14,36 @@
       text-align: center;
     }
 
+    /* HEADER */
     header {
       background-color: #004aad;
       color: white;
-      padding: 20px;
+      padding: 30px 20px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
 
     header img {
-      width: 100px;
+      width: 150px;
       height: auto;
       display: block;
-      margin: 0 auto 10px auto;
+      margin: 0 auto 15px auto; /* Tengah dan ada jarak bawah */
     }
 
     header h1 {
       margin: 5px 0 10px 0;
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 700;
     }
 
+    header p {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    /* NAVIGASI */
     nav {
       background-color: #003a8c;
-      padding: 10px;
+      padding: 12px;
     }
 
     nav a {
@@ -50,6 +57,7 @@
       text-decoration: underline;
     }
 
+    /* BAGIAN UTAMA */
     section {
       padding: 40px 20px;
     }
@@ -58,6 +66,17 @@
       color: #004aad;
     }
 
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 8px 0;
+      font-size: 16px;
+    }
+
+    /* FORM */
     form {
       max-width: 400px;
       margin: 0 auto;
@@ -66,6 +85,10 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
     }
 
     input, textarea {
@@ -91,6 +114,7 @@
       background-color: #003a8c;
     }
 
+    /* FOOTER */
     footer {
       background-color: #004aad;
       color: white;
@@ -98,7 +122,7 @@
       font-size: 14px;
     }
 
-    /* Tombol WhatsApp mengambang */
+    /* TOMBOL WHATSAPP MENGAMBANG */
     .whatsapp-float {
       position: fixed;
       width: 60px;
@@ -123,7 +147,8 @@
 <body>
 
   <header>
-    <img src="https://raw.githubusercontent.com/rahmanhanif/Assistenku/main/logo.png" alt="Logo Assistenku">
+    <!-- Ganti nama file di bawah ini sesuai dengan nama file logo kamu -->
+    <img src="logo.png" alt="Logo Assistenku">
     <h1>Assistenku</h1>
     <p>Asisten pribadi profesional untuk kebutuhan harian Anda</p>
   </header>
@@ -142,7 +167,7 @@
 
   <section id="layanan">
     <h2>Jenis Layanan</h2>
-    <ul style="list-style: none; padding: 0;">
+    <ul>
       <li>✅ Asisten Pribadi Harian</li>
       <li>✅ Penjaga Orang Sakit</li>
       <li>✅ Baby Sitter dan ART</li>
@@ -174,11 +199,13 @@
     &copy; 2025 Assistenku. Semua Hak Dilindungi.
   </footer>
 
+  <!-- Tombol WhatsApp mengambang -->
   <a href="https://wa.me/628989760020?text=Halo%20Assistenku,%20saya%20ingin%20menggunakan%20layanan%20asisten%20pribadi." class="whatsapp-float" target="_blank">
     <i>💬</i>
   </a>
 
   <script>
+    // Formulir kirim ke WhatsApp
     document.getElementById('contactForm').addEventListener('submit', function(event) {
       event.preventDefault();
       const nama = document.getElementById('nama').value;
