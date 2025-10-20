@@ -1,151 +1,112 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assistenku</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        header nav a {
-            color: white;
-            text-decoration: none;
-            margin-left: 20px;
-            font-weight: 500;
-        }
-        header nav a:hover {
-            text-decoration: underline;
-        }
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-            background-color: #e8f5e9;
-        }
-        .hero img {
-            width: 120px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #555;
-        }
-        section {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        section h2 {
-            color: #4CAF50;
-            margin-bottom: 15px;
-        }
-        section p, section ul {
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-        section ul li {
-            margin-bottom: 10px;
-        }
-        .contact-links a {
-            display: inline-block;
-            margin-right: 15px;
-            margin-top: 10px;
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .contact-links a:hover {
-            background-color: #45a049;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: #e8f5e9;
-            color: #555;
-            line-height: 1.5;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assistenku</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Reset dan dasar */
+* {margin:0;padding:0;box-sizing:border-box;}
+body {font-family:'Roboto', sans-serif;background-color:#f9f9f9;color:#333;line-height:1.6;}
+a {text-decoration:none;}
+
+/* Header */
+header {
+  position:sticky;top:0;background-color:#4CAF50;color:white;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;z-index:1000;
+}
+header nav a {margin-left:20px;color:white;font-weight:500;transition:color 0.3s;}
+header nav a:hover {color:#e0f2f1;}
+
+/* Hero */
+.hero {text-align:center;padding:60px 20px;background-color:#e8f5e9;}
+.hero img {width:120px;height:auto;margin-bottom:20px;}
+.hero h1 {font-size:2.5rem;margin-bottom:10px;}
+.hero p {font-size:1.2rem;color:#555;}
+
+/* Sections */
+section {max-width:900px;margin:40px auto;padding:0 20px;}
+section h2 {color:#4CAF50;margin-bottom:15px;font-size:1.8rem;}
+section p, section ul {font-size:1rem;}
+section ul li {margin-bottom:10px;}
+
+/* Tombol */
+.contact-links a {
+  display:inline-block;margin-right:15px;margin-top:10px;padding:10px 15px;background-color:#4CAF50;color:white;border-radius:5px;transition:all 0.3s;
+}
+.contact-links a:hover {background-color:#45a049;transform:translateY(-2px);}
+
+/* Footer */
+footer {
+  text-align:center;padding:20px;background-color:#e8f5e9;color:#555;line-height:1.5;font-size:0.9rem;
+}
+
+/* Smooth Scroll */
+html {scroll-behavior:smooth;}
+
+/* Responsive */
+@media (max-width:768px){
+  header {flex-direction:column;align-items:flex-start;}
+  header nav {margin-top:10px;}
+  header nav a {margin-left:0;margin-right:15px;}
+}
+</style>
 </head>
 <body>
 
 <header>
-    <div class="logo">Assistenku</div>
-    <nav>
-        <a href="#profil">Profil Perusahaan</a>
-        <a href="#layanan">Layanan</a>
-        <a href="#hubungi">Hubungi Kami</a>
-        <a href="#karir">Gabung Karir</a>
-    </nav>
+  <div class="logo">Assistenku</div>
+  <nav>
+    <a href="#profil">Profil Perusahaan</a>
+    <a href="#layanan">Layanan</a>
+    <a href="#hubungi">Hubungi Kami</a>
+    <a href="#karir">Gabung Karir</a>
+  </nav>
 </header>
 
 <div class="hero">
-    <img src="logo.png" alt="Logo Assistenku">
-    <h1>Assistenku</h1>
-    <p>Asisten pribadi profesional untuk kebutuhan harian Anda</p>
+  <img src="logo.png" alt="Logo Assistenku">
+  <h1>Assistenku</h1>
+  <p>Asisten pribadi profesional untuk kebutuhan harian Anda</p>
 </div>
 
 <section id="profil">
-    <h2>Profil Perusahaan</h2>
-    <p>
-        Layanan Assistenku timbul atas niat menolong dan membantu sesama untuk jasa layanan berupa tenaga kerja untuk Asisten pribadi harian, caregiver, menjaga orang sakit, jasa pertukangan rumah atau kantor, driver dan layanan antar jemput, serta kebutuhan lainnya terkait pekerjaan atau tugas yang perlu tenaga bantuan.
-    </p>
+  <h2>Profil Perusahaan</h2>
+  <p>Layanan Assistenku timbul atas niat menolong dan membantu sesama untuk jasa layanan berupa tenaga kerja untuk Asisten pribadi harian, caregiver, menjaga orang sakit, jasa pertukangan rumah atau kantor, driver dan layanan antar jemput, serta kebutuhan lainnya terkait pekerjaan atau tugas yang perlu tenaga bantuan.</p>
 </section>
 
 <section id="layanan">
-    <h2>Layanan Tersedia</h2>
-    <ul>
-        <li>Asisten pribadi harian</li>
-        <li>Caregiver / Menjaga orang sakit</li>
-        <li>Jasa pertukangan rumah atau kantor</li>
-        <li>Driver dan layanan antar jemput</li>
-        <li>Kebutuhan lainnya terkait pekerjaan atau tugas yang memerlukan tenaga bantuan</li>
-    </ul>
+  <h2>Layanan Tersedia</h2>
+  <ul>
+    <li>Asisten pribadi harian</li>
+    <li>Caregiver / Menjaga orang sakit</li>
+    <li>Jasa pertukangan rumah atau kantor</li>
+    <li>Driver dan layanan antar jemput</li>
+    <li>Kebutuhan lainnya terkait pekerjaan atau tugas yang memerlukan tenaga bantuan</li>
+  </ul>
 </section>
 
 <section id="hubungi">
-    <h2>Hubungi Kami</h2>
-    <div class="contact-links">
-        <a href="https://wa.me/628989760020" target="_blank">WhatsApp</a>
-        <a href="mailto:kontakassistenku@gmail.com">Email</a>
-        <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSBnNMmxrlrQqrBCSVPDStNqXpKrPCGdZdXxzpPLppzVmqmwwXHmkhSKxzHKHRLmqCfgHRXq" target="_blank">Tulis Email</a>
-    </div>
+  <h2>Hubungi Kami</h2>
+  <div class="contact-links">
+    <a href="https://wa.me/628989760020" target="_blank">WhatsApp</a>
+    <a href="mailto:kontakassistenku@gmail.com">Email</a>
+    <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSMVkvRXXLCQvcVvZNJCkKQfhPTtjPCNtqwlhtQhTLDRNWQgSKZLSlrXFdrFDpxpdWrwHbzn" target="_blank">Tulis Email</a>
+  </div>
 </section>
 
 <section id="karir">
-    <h2>Gabung Karir</h2>
-    <div class="contact-links">
-        <a href="https://wa.me/6285186660021" target="_blank">WhatsApp Karir</a>
-        <a href="mailto:karirassistenku@gmail.com">Email Karir</a>
-        <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSBnNMmxrlrQqrBCSVPDStNqXpKrPCGdZdXxzpPLppzVmqmwwXHmkhSKxzHKHRLmqCfgHRXq" target="_blank">Tulis Email</a>
-    </div>
+  <h2>Gabung Karir</h2>
+  <div class="contact-links">
+    <a href="https://wa.me/6285186660021" target="_blank">WhatsApp Karir</a>
+    <a href="mailto:karirassistenku@gmail.com">Email Karir</a>
+    <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSMVkvRXXLCQvcVvZNJCkKQfhPTtjPCNtqwlhtQhTLDRNWQgSKZLSlrXFdrFDpxpdWrwHbzn" target="_blank">Tulis Email</a>
+  </div>
 </section>
 
 <footer>
-    Griya Larasati 4 Blok 5M, Setu, Cikarageman, Bekasi, Jawa Barat<br>
-    &copy; 2025 Assistenku. Semua hak cipta dilindungi.
+  Griya Larasati 4 Blok 5M, Setu, Cikarageman, Bekasi, Jawa Barat<br>
+  &copy; 2025 Assistenku. Semua hak cipta dilindungi.
 </footer>
 
 </body>
