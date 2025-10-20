@@ -1,219 +1,151 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Assistenku</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background-color: #f4f7fb;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-
-    /* HEADER */
-    header {
-      background-color: #004aad;
-      color: white;
-      padding: 30px 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-
-    header img {
-      width: 150px;
-      height: auto;
-      display: block;
-      margin: 0 auto 15px auto; /* Tengah dan ada jarak bawah */
-    }
-
-    header h1 {
-      margin: 5px 0 10px 0;
-      font-size: 32px;
-      font-weight: 700;
-    }
-
-    header p {
-      font-size: 16px;
-      margin: 0;
-    }
-
-    /* NAVIGASI */
-    nav {
-      background-color: #003a8c;
-      padding: 12px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    /* BAGIAN UTAMA */
-    section {
-      padding: 40px 20px;
-    }
-
-    h2 {
-      color: #004aad;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      margin: 8px 0;
-      font-size: 16px;
-    }
-
-    /* FORM */
-    form {
-      max-width: 400px;
-      margin: 0 auto;
-      text-align: left;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    label {
-      font-weight: bold;
-    }
-
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      background-color: #004aad;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    button:hover {
-      background-color: #003a8c;
-    }
-
-    /* FOOTER */
-    footer {
-      background-color: #004aad;
-      color: white;
-      padding: 15px;
-      font-size: 14px;
-    }
-
-    /* TOMBOL WHATSAPP MENGAMBANG */
-    .whatsapp-float {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25D366;
-      color: white;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 30px;
-      box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
-      z-index: 100;
-    }
-
-    .whatsapp-float i {
-      margin-top: 15px;
-    }
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistenku</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+        }
+        header nav a:hover {
+            text-decoration: underline;
+        }
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #e8f5e9;
+        }
+        .hero img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+        section {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        section h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        section p, section ul {
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        section ul li {
+            margin-bottom: 10px;
+        }
+        .contact-links a {
+            display: inline-block;
+            margin-right: 15px;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .contact-links a:hover {
+            background-color: #45a049;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #e8f5e9;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <!-- Ganti nama file di bawah ini sesuai dengan nama file logo kamu -->
-    <img src="logo.png" alt="Logo Assistenku">
+<header>
+    <div class="logo">Assistenku</div>
+    <nav>
+        <a href="#profil">Profil Perusahaan</a>
+        <a href="#layanan">Layanan</a>
+        <a href="#hubungi">Hubungi Kami</a>
+        <a href="#karir">Gabung Karir</a>
+    </nav>
+</header>
+
+<div class="hero">
+    <img src="https://via.placeholder.com/100" alt="Logo Assistenku">
     <h1>Assistenku</h1>
     <p>Asisten pribadi profesional untuk kebutuhan harian Anda</p>
-  </header>
+</div>
 
-  <nav>
-    <a href="#profil">Profil</a>
-    <a href="#layanan">Layanan</a>
-    <a href="#hubungi">Hubungi Kami</a>
-    <a href="#karir">Gabung Karir</a>
-  </nav>
-
-  <section id="profil">
+<section id="profil">
     <h2>Profil Perusahaan</h2>
-    <p><strong>Assistenku</strong> adalah layanan profesional yang menyediakan tenaga asisten pribadi untuk berbagai kebutuhan seperti menjaga orang sakit, ambil obat, baby sitter, tukang kebun, pertukangan, ART, driver, dan lainnya.</p>
-  </section>
+    <p>
+        Layanan Assistenku timbul atas niat menolong dan membantu sesama untuk jasa layanan berupa tenaga kerja untuk Asisten pribadi harian, caregiver, menjaga orang sakit, jasa pertukangan rumah atau kantor, driver dan layanan antar jemput, serta kebutuhan lainnya terkait pekerjaan atau tugas yang perlu tenaga bantuan.
+    </p>
+</section>
 
-  <section id="layanan">
-    <h2>Jenis Layanan</h2>
+<section id="layanan">
+    <h2>Layanan Tersedia</h2>
     <ul>
-      <li>✅ Asisten Pribadi Harian</li>
-      <li>✅ Penjaga Orang Sakit</li>
-      <li>✅ Baby Sitter dan ART</li>
-      <li>✅ Tukang Kebun & Pertukangan</li>
-      <li>✅ Driver & Layanan Antar-Jemput</li>
+        <li>Asisten pribadi harian</li>
+        <li>Caregiver / Menjaga orang sakit</li>
+        <li>Jasa pertukangan rumah atau kantor</li>
+        <li>Driver dan layanan antar jemput</li>
+        <li>Kebutuhan lainnya terkait pekerjaan atau tugas yang memerlukan tenaga bantuan</li>
     </ul>
-  </section>
+</section>
 
-  <section id="hubungi">
+<section id="hubungi">
     <h2>Hubungi Kami</h2>
-    <form id="contactForm">
-      <label>Nama:</label>
-      <input type="text" id="nama" required>
-      <label>Pesan:</label>
-      <textarea id="pesan" rows="4" required></textarea>
-      <button type="submit">Kirim ke WhatsApp</button>
-    </form>
-  </section>
+    <div class="contact-links">
+        <a href="https://wa.me/628989760020" target="_blank">WhatsApp</a>
+        <a href="mailto:kontakassistenku@gmail.com" target="_blank">Email</a>
+        <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSBnNMmxrlrQqrBCSVPDStNqXpKrPCGdZdXxzpPLppzVmqmwwXHmkhSKxzHKHRLmqCfgHRXq" target="_blank">Tulis Email</a>
+    </div>
+</section>
 
-  <section id="karir">
+<section id="karir">
     <h2>Gabung Karir</h2>
-    <p>Kami membuka kesempatan bagi Anda yang ingin bergabung bersama tim Assistenku. Hubungi kami melalui WhatsApp untuk informasi lebih lanjut.</p>
-    <button onclick="window.open('https://wa.me/628989760020?text=Halo%20Assistenku,%20saya%20ingin%20bergabung%20menjadi%20asisten.', '_blank')">
-      Daftar Sekarang
-    </button>
-  </section>
+    <div class="contact-links">
+        <a href="https://wa.me/6285186660021" target="_blank">WhatsApp Karir</a>
+        <a href="mailto:karirassistenku@gmail.com" target="_blank">Email Karir</a>
+        <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSBnNMmxrlrQqrBCSVPDStNqXpKrPCGdZdXxzpPLppzVmqmwwXHmkhSKxzHKHRLmqCfgHRXq" target="_blank">Tulis Email</a>
+    </div>
+</section>
 
-  <footer>
-    &copy; 2025 Assistenku. Semua Hak Dilindungi.
-  </footer>
-
-  <!-- Tombol WhatsApp mengambang -->
-  <a href="https://wa.me/628989760020?text=Halo%20Assistenku,%20saya%20ingin%20menggunakan%20layanan%20asisten%20pribadi." class="whatsapp-float" target="_blank">
-    <i>💬</i>
-  </a>
-
-  <script>
-    // Formulir kirim ke WhatsApp
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const nama = document.getElementById('nama').value;
-      const pesan = document.getElementById('pesan').value;
-      const url = `https://wa.me/628989760020?text=Halo%20Assistenku,%20saya%20${encodeURIComponent(nama)}.%20${encodeURIComponent(pesan)}`;
-      window.open(url, '_blank');
-    });
-  </script>
+<footer>
+    &copy; 2025 Assistenku. Semua hak cipta dilindungi.
+</footer>
 
 </body>
 </html>
