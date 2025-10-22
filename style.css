@@ -1,0 +1,164 @@
+/* ===========================
+   STYLE.CSS - ASSISTENKU.ID
+   =========================== */
+
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Warna utama */
+:root {
+  --primary: #1a73e8;
+  --secondary: #f5f5f5;
+  --dark: #222;
+  --light: #fff;
+  --accent: #ffb300;
+}
+
+/* Header */
+header {
+  background: var(--primary);
+  color: var(--light);
+  padding: 15px 0;
+  text-align: center;
+}
+
+header img {
+  height: 60px;
+  vertical-align: middle;
+}
+
+header h1 {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Menu navigasi */
+nav {
+  background: var(--dark);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: var(--light);
+  text-decoration: none;
+  padding: 12px 20px;
+  display: block;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+nav a:hover {
+  background: var(--primary);
+}
+
+/* Konten utama */
+main {
+  padding: 30px;
+  background: var(--secondary);
+  min-height: 70vh;
+}
+
+/* Judul halaman */
+h2 {
+  margin-bottom: 20px;
+  color: var(--primary);
+  text-align: center;
+  font-size: 28px;
+}
+
+/* Paragraf */
+p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+/* Tombol umum */
+button,
+a.button {
+  background: var(--primary);
+  color: var(--light);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+button:hover,
+a.button:hover {
+  background: var(--accent);
+  color: var(--dark);
+}
+
+/* Formulir */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--light);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+input[type="submit"] {
+  background: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background: var(--accent);
+  color: var(--dark);
+}
+
+/* Footer */
+footer {
+  background: var(--dark);
+  color: var(--light);
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 14px;
+}
+
+footer p {
+  margin-bottom: 8px;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+
+  nav a {
+    border-top: 1px solid #333;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  main {
+    padding: 20px;
+  }
+}
