@@ -106,6 +106,48 @@ p, li {
   background-color: #0056b3;
 }
 
+/* ======== Kotak WhatsApp & Email (Kontak) ======== */
+.contact-box {
+  border: 1px solid #bcd4ff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  background-color: #e6f0ff;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.contact-box p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.btn-wa, .btn-email {
+  display: inline-block;
+  padding: 10px 25px;
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.btn-wa {
+  background-color: #25d366;
+}
+
+.btn-email {
+  background-color: #ea4335;
+}
+
+.btn-wa:hover {
+  background-color: #1da851;
+}
+
+.btn-email:hover {
+  background-color: #d03426;
+}
+
 /* Kotak konsultasi (digunakan di layanan.html) */
 .konsultasi {
   background-color: #e6f0ff;
@@ -146,5 +188,15 @@ img {
 
   main {
     padding: 20px 10px;
+  }
+
+  .contact-box {
+    padding: 15px;
+  }
+
+  .btn-wa, .btn-email {
+    width: 100%;
+    display: block;
+    margin-top: 10px;
   }
 }
