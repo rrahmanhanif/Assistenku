@@ -26,6 +26,7 @@
       text-decoration: none;
       margin: 10px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     .btn:hover { background-color: #0056b3; }
@@ -40,8 +41,7 @@
       border: 1px solid #ccc;
     }
 
-    #tarif-download { display: none; }
-    #lowongan { display: none; }
+    #tarif-download, #lowongan { display: none; }
   </style>
 </head>
 <body>
@@ -100,7 +100,7 @@
       <h2>Lowongan Kerja Tersedia</h2>
       <p>Hanya calon pekerja yang telah diverifikasi dapat melihat detail lowongan kerja dan upahnya.</p>
       <ul>
-        <li>Asisten Rumah Tangga (Upah mulai Rp150.000/hari)</li>
+        <li>Asisten Rumah Tangga (Rp150.000/hari)</li>
         <li>Perawat Lansia (Rp200.000/hari)</li>
         <li>Driver Pribadi (Rp250.000/hari)</li>
       </ul>
@@ -124,42 +124,47 @@
   </footer>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbww1eFbBf2L93L7_gWM4idZnFY2aD_N9Avn1ciuHSxootrqLyy7AYNLEYThjam2RxUwTQ/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycby8zfJzs2N8ADFyXPMotedef-5waIghREJGpy5D9meeJE1DPjcb7gZ43gFPwa6nAb8_9g/exec";
 
-    function sendOTP() {
+    async function sendOTP() {
       const email = document.getElementById("email").value;
       if (!email) return alert("Masukkan email terlebih dahulu.");
 
-      fetch(scriptURL + "?action=sendOTP&email=" + encodeURIComponent(email))
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            alert("Kode OTP telah dikirim ke email Anda.");
-            document.getElementById("otp-input").style.display = "block";
-          } else {
-            alert("Gagal mengirim OTP. Silakan coba lagi.");
-          }
-        })
-        .catch(err => alert("Terjadi kesalahan koneksi ke server."));
+      try {
+        const res = await fetch(`${scriptURL}?action=sendOTP&email=${encodeURIComponent(email)}`);
+        const data = await res.json();
+
+        if (data.success) {
+          alert("Kode OTP telah dikirim ke email Anda.");
+          document.getElementById("otp-input").style.display = "block";
+        } else {
+          alert("Gagal mengirim OTP. Silakan coba lagi.");
+        }
+      } catch (err) {
+        alert("Terjadi kesalahan koneksi ke server.");
+      }
     }
 
-    function verifyOTP() {
+    async function verifyOTP() {
       const email = document.getElementById("email").value;
       const otp = document.getElementById("otp").value;
+      if (!otp) return alert("Masukkan kode OTP.");
 
-      fetch(scriptURL + "?action=verifyOTP&email=" + encodeURIComponent(email) + "&otp=" + encodeURIComponent(otp))
-        .then(res => res.json())
-        .then(data => {
-          if (data.verified) {
-            alert("Verifikasi berhasil! Anda sekarang dapat mengakses file tarif dan lowongan kerja.");
-            document.getElementById("tarif-download").style.display = "block";
-            document.getElementById("lowongan").style.display = "block";
-            document.getElementById("otp-section").style.display = "none";
-          } else {
-            alert("Kode OTP salah atau kadaluarsa.");
-          }
-        })
-        .catch(err => alert("Terjadi kesalahan saat verifikasi."));
+      try {
+        const res = await fetch(`${scriptURL}?action=verifyOTP&email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`);
+        const data = await res.json();
+
+        if (data.verified) {
+          alert("Verifikasi berhasil! Anda sekarang dapat mengakses tarif dan lowongan kerja.");
+          document.getElementById("tarif-download").style.display = "block";
+          document.getElementById("lowongan").style.display = "block";
+          document.getElementById("otp-section").style.display = "none";
+        } else {
+          alert("Kode OTP salah atau sudah kadaluarsa.");
+        }
+      } catch (err) {
+        alert("Terjadi kesalahan koneksi ke server.");
+      }
     }
   </script>
 </body>
