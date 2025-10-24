@@ -6,6 +6,7 @@
   <title>Layanan | Assistenku</title>
   <link rel="stylesheet" href="style.css">
   <style>
+    body { font-family: Arial, sans-serif; }
     p, li { text-align: justify; }
 
     .otp-box, .tarif, .konsultasi {
@@ -30,7 +31,7 @@
 
     .btn:hover { background-color: #0056b3; }
 
-    #otp-section input {
+    input {
       padding: 10px;
       margin: 5px;
       width: 80%;
@@ -41,7 +42,6 @@
 
     #message {
       margin-top: 10px;
-      color: red;
       font-weight: bold;
     }
 
@@ -97,10 +97,9 @@
     <section class="tarif" id="tarif-link">
       <h2>Tarif Layanan</h2>
       <p>Klik tombol di bawah ini untuk membuka dokumen tarif layanan resmi kami.</p>
-      <a id="tarif-button" href="#" class="btn" target="_blank">Buka Dokumen</a>
+      <a id="tarif-button" href="https://drive.google.com/file/d/1IlsMLZmoG-dQso164iUSP8Dw_Z-VCNtZ/view?usp=drivesdk" class="btn" target="_blank">Buka Dokumen Tarif</a>
     </section>
 
-    <!-- Lowongan (Opsional) -->
     <section class="konsultasi" id="lowongan">
       <h2>Lowongan Kerja Tersedia</h2>
       <ul>
@@ -125,6 +124,7 @@
 
       if (!email) {
         msg.textContent = "Masukkan email terlebih dahulu.";
+        msg.style.color = "red";
         return;
       }
 
@@ -137,14 +137,16 @@
         const data = await response.json();
 
         if (data.success) {
-          msg.style.color = "green";
           msg.textContent = "Kode OTP telah dikirim ke email Anda.";
+          msg.style.color = "green";
           document.getElementById("otp-input").style.display = "block";
         } else {
           msg.textContent = data.message || "Gagal mengirim OTP.";
+          msg.style.color = "red";
         }
       } catch (error) {
-        msg.textContent = "Tidak dapat terhubung ke server.";
+        msg.textContent = "⚠️ Tidak dapat terhubung ke server. Pastikan Apps Script diatur ke publik.";
+        msg.style.color = "red";
       }
     }
 
@@ -156,6 +158,7 @@
 
       if (!otp) {
         msg.textContent = "Masukkan kode OTP.";
+        msg.style.color = "red";
         return;
       }
 
@@ -168,21 +171,17 @@
         const data = await response.json();
 
         if (data.verified) {
+          msg.textContent = "✅ Verifikasi berhasil! Dokumen bisa dibuka.";
           msg.style.color = "green";
-          msg.textContent = "Verifikasi berhasil! Membuka dokumen...";
           document.getElementById("tarif-link").style.display = "block";
           document.getElementById("lowongan").style.display = "block";
-          document.getElementById("tarif-button").href = "https://drive.google.com/file/d/1IlsMLZmoG-dQso164iUSP8Dw_Z-VCNtZ/view?usp=drivesdk";
-
-          // Buka otomatis link setelah verifikasi
-          setTimeout(() => {
-            window.open("https://drive.google.com/file/d/1IlsMLZmoG-dQso164iUSP8Dw_Z-VCNtZ/view?usp=drivesdk", "_blank");
-          }, 1500);
         } else {
           msg.textContent = data.message || "Kode OTP salah atau kadaluarsa.";
+          msg.style.color = "red";
         }
       } catch (error) {
-        msg.textContent = "Terjadi kesalahan saat verifikasi.";
+        msg.textContent = "⚠️ Gagal memverifikasi. Coba lagi.";
+        msg.style.color = "red";
       }
     }
   </script>
