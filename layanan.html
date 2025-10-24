@@ -76,16 +76,16 @@
       <p>Kami memastikan seluruh tenaga kami berpengalaman dan terpercaya.</p>
     </section>
 
-    <!-- Form OTP -->
+    <!-- Form OTP via Email -->
     <section class="otp-box">
       <h2>Verifikasi Pengguna</h2>
       <div id="otp-section">
-        <p>Masukkan nomor WhatsApp Anda untuk menerima kode OTP sebelum mengakses tarif layanan.</p>
-        <input type="text" id="phone" placeholder="Nomor WhatsApp (628...)" />
+        <p>Masukkan email Anda untuk menerima kode OTP sebelum mengakses tarif layanan.</p>
+        <input type="email" id="email" placeholder="Masukkan email Anda">
         <button class="btn" onclick="kirimOTP()">Kirim OTP</button>
 
         <div id="otp-input" style="display:none;">
-          <p>Masukkan kode OTP yang dikirim ke WhatsApp Anda:</p>
+          <p>Masukkan OTP yang dikirim ke email Anda:</p>
           <input type="text" id="otp" placeholder="Masukkan kode OTP">
           <button class="btn" onclick="verifikasiOTP()">Verifikasi OTP</button>
         </div>
@@ -130,55 +130,48 @@
   </footer>
 
   <script>
-    // API URL dari Google Apps Script kamu
-    const API_URL = "https://script.google.com/macros/s/AKfycbwHtkmfYCt2kOHBCJVmNJyXY4XExI38Isovp3joYwx7C9uLF3a2PzRrtk2BbUZlF0SjTw/exec";
+    // URL Web App Google Apps Script
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwHtkmfYCt2kOHBCJVmNJyXY4XExI38Isovp3joYwx7C9uLF3a2PzRrtk2BbUZlF0SjTw/exec";
 
     async function kirimOTP() {
-      const phone = document.getElementById("phone").value.trim();
-      if (!phone) return tampilkanPesan("Nomor tidak boleh kosong!", "red");
+      const email = document.getElementById("email").value.trim();
+      if (!email) return tampilkanPesan("Masukkan email terlebih dahulu.", "red");
 
-      tampilkanPesan("Mengirim OTP...", "blue");
+      tampilkanPesan("Mengirim OTP ke email Anda...", "blue");
       try {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "kirimOTP", phone })
-        });
+        const res = await fetch(`${scriptURL}?action=sendOTP&email=${encodeURIComponent(email)}`);
         const data = await res.json();
-        if (data.status === "success" || data.message?.includes("dikirim")) {
-          tampilkanPesan("OTP telah dikirim ke WhatsApp Anda.", "green");
+        if (data.success) {
+          tampilkanPesan("Kode OTP telah dikirim ke email Anda.", "green");
           document.getElementById("otp-input").style.display = "block";
         } else {
           tampilkanPesan(data.message || "Gagal mengirim OTP.", "red");
         }
-      } catch (e) {
-        tampilkanPesan("Gagal menghubungi server!", "red");
+      } catch (err) {
+        tampilkanPesan("Gagal terhubung ke server. Coba lagi.", "red");
       }
     }
 
     async function verifikasiOTP() {
-      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
       const otp = document.getElementById("otp").value.trim();
-      if (!phone || !otp) return tampilkanPesan("Lengkapi nomor & OTP!", "red");
+      if (!otp) return tampilkanPesan("Masukkan kode OTP terlebih dahulu.", "red");
 
       tampilkanPesan("Memverifikasi OTP...", "blue");
       try {
-        const res = await fetch(API_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "verifikasiOTP", phone, otp })
-        });
+        const res = await fetch(`${scriptURL}?action=verifyOTP&email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`);
         const data = await res.json();
-        if (data.status === "success" || data.message?.includes("valid")) {
-          tampilkanPesan("Verifikasi berhasil! Akses tarif & lowongan dibuka.", "green");
+
+        if (data.verified) {
+          tampilkanPesan("Verifikasi berhasil! Anda dapat mengakses tarif & lowongan kerja.", "green");
           document.getElementById("tarif-download").style.display = "block";
           document.getElementById("lowongan").style.display = "block";
           document.getElementById("otp-section").style.display = "none";
         } else {
-          tampilkanPesan(data.message || "OTP salah atau sudah kadaluarsa.", "red");
+          tampilkanPesan(data.message || "Kode OTP salah atau sudah kadaluarsa.", "red");
         }
-      } catch (e) {
-        tampilkanPesan("Gagal menghubungi server!", "red");
+      } catch (err) {
+        tampilkanPesan("Kesalahan koneksi ke server.", "red");
       }
     }
 
