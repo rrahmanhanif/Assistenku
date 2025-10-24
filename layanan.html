@@ -37,6 +37,48 @@
     .tagline {
       text-align: center;
     }
+
+    /* Popup OTP */
+    .otp-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .otp-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .otp-box input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .otp-box button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .otp-box button:hover {
+      background: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -76,10 +118,79 @@
          class="btn" target="_blank">Unduh Formulir</a>
       <a href="mailto:kontakassistenku@gmail.com" class="btn">Kirim ke Email</a>
     </section>
+
+    <!-- Tombol Lihat Tarif -->
+    <div style="text-align:center; margin-top:40px;">
+      <button class="btn" onclick="openOtpPopup()">Lihat Tarif Layanan</button>
+    </div>
   </main>
+
+  <!-- Popup OTP -->
+  <div class="otp-popup" id="otpPopup">
+    <div class="otp-box">
+      <h3>Verifikasi Nomor WhatsApp</h3>
+      <p>Masukkan nomor WhatsApp kamu untuk menerima OTP verifikasi.</p>
+      <input type="text" id="waNumber" placeholder="Contoh: 089812345678">
+      <button onclick="sendOtp()">Kirim OTP</button>
+
+      <div id="otpSection" style="display:none;">
+        <p>Masukkan kode OTP yang telah dikirim ke WhatsApp kamu.</p>
+        <input type="text" id="otpInput" placeholder="Masukkan OTP">
+        <button onclick="verifyOtp()">Submit OTP</button>
+      </div>
+
+      <p id="otpMessage" style="color:red; font-weight:bold;"></p>
+    </div>
+  </div>
 
   <footer>
     <p>© 2025 Assistenku. Semua Hak Dilindungi.</p>
   </footer>
+
+  <script>
+    let generatedOtp = "";
+    const otpPopup = document.getElementById('otpPopup');
+    const otpMessage = document.getElementById('otpMessage');
+
+    function openOtpPopup() {
+      otpPopup.style.display = "flex";
+    }
+
+    function sendOtp() {
+      const waNumber = document.getElementById('waNumber').value.trim();
+      if (!waNumber) {
+        otpMessage.textContent = "Nomor WA tidak boleh kosong.";
+        return;
+      }
+
+      // Simulasi kirim OTP (di dunia nyata akan dikirim via API WhatsApp)
+      generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+      otpMessage.style.color = "green";
+      otpMessage.textContent = `Kode OTP telah dikirim ke WhatsApp ${waNumber} (simulasi: ${generatedOtp})`;
+      document.getElementById('otpSection').style.display = "block";
+
+      // Simpan pseudo IP agar tidak bisa verifikasi ulang di halaman lain
+      localStorage.setItem("verified_ip", "true");
+    }
+
+    function verifyOtp() {
+      const inputOtp = document.getElementById('otpInput').value.trim();
+      if (inputOtp === generatedOtp && localStorage.getItem("verified_ip") === "true") {
+        otpMessage.style.color = "green";
+        otpMessage.textContent = "Verifikasi berhasil! Mengarahkan ke halaman tarif...";
+        setTimeout(() => {
+          window.location.href = "tarif.html";
+        }, 1200);
+      } else {
+        otpMessage.style.color = "red";
+        otpMessage.textContent = "OTP salah atau sesi tidak valid.";
+      }
+    }
+
+    // Deteksi pseudo IP (simulasi)
+    if (localStorage.getItem("verified_ip") === "true" && window.location.pathname.includes("karir.html")) {
+      document.body.innerHTML = "<h3 style='text-align:center;margin-top:100px;color:red;'>Akses ditolak. Anda telah diverifikasi sebagai klien.</h3>";
+    }
+  </script>
 </body>
 </html>
