@@ -49,6 +49,13 @@
       width: 80%;
       max-width: 300px;
     }
+    #loading {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+      color: #007bff;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -95,11 +102,12 @@
 
     <!-- OTP Form Section -->
     <section id="otpSection" class="otp-section">
-      <h3>Verifikasi Nomor WhatsApp</h3>
-      <p>Masukkan nomor WhatsApp Anda untuk menerima kode OTP.</p>
-      <input type="text" id="waNumber" placeholder="+62xxxxxxxxxx"><br><br>
-      <button class="btn" onclick="sendOTP()">Kirim OTP via WhatsApp</button>
-      <p id="otpStatus" style="color:green; display:none;">OTP telah dikirim ke WhatsApp Anda.</p>
+      <h3>Verifikasi Email</h3>
+      <p>Masukkan email Anda untuk menerima kode OTP verifikasi.</p>
+      <input type="email" id="emailInput" placeholder="contoh: nama@gmail.com"><br><br>
+      <button class="btn" onclick="sendOTP()">Kirim OTP ke Email</button>
+      <div id="loading">Mengirim OTP...</div>
+      <p id="otpStatus" style="color:green; display:none;"></p>
       <div id="otpInputSection" style="display:none;">
         <input type="text" id="otpCode" placeholder="Masukkan Kode OTP"><br><br>
         <button class="btn" onclick="verifyOTP()">Submit OTP</button>
@@ -120,51 +128,51 @@
   </footer>
 
   <script>
+    // URL Google Apps Script kamu
+    const GAS_URL = "https://script.google.com/macros/s/AKfycby7AfNIvYPyxl0XBlgyn36l6N3WtVGVRkfo5m0zmGvr35_XdfwetsujETLQUPN3f7W5/exec";
+
     function showOTPForm() {
       document.getElementById('otpSection').style.display = 'block';
+      window.scrollTo({ top: document.getElementById('otpSection').offsetTop, behavior: 'smooth' });
     }
 
     async function sendOTP() {
-      const waNumber = document.getElementById('waNumber').value;
-      if (!waNumber) return alert("Masukkan nomor WhatsApp terlebih dahulu.");
+      const email = document.getElementById('emailInput').value.trim();
+      if (!email) return alert("Masukkan alamat email terlebih dahulu.");
 
-      // kirim OTP via WhatsApp Business API
+      document.getElementById("loading").style.display = "block";
+
       try {
-        const response = await fetch("https://graph.facebook.com/v17.0/YOUR_PHONE_NUMBER_ID/messages", {
-          method: "POST",
-          headers: {
-            "Authorization": "Bearer YOUR_ACCESS_TOKEN",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            messaging_product: "whatsapp",
-            to: waNumber,
-            type: "template",
-            template: {
-              name: "otp_verification",
-              language: { code: "id" },
-              components: [
-                { type: "body", parameters: [{ type: "text", text: "123456" }] }
-              ]
-            }
-          })
-        });
-
+        const response = await fetch(`${GAS_URL}?action=send&email=${encodeURIComponent(email)}`);
+        const result = await response.text();
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("otpStatus").innerText = result;
         document.getElementById("otpStatus").style.display = "block";
         document.getElementById("otpInputSection").style.display = "block";
-      } catch (error) {
-        alert("Gagal mengirim OTP. Periksa konfigurasi API WhatsApp Business Anda.");
+      } catch (err) {
+        document.getElementById("loading").style.display = "none";
+        alert("Terjadi kesalahan saat mengirim OTP: " + err.message);
       }
     }
 
-    function verifyOTP() {
-      const entered = document.getElementById('otpCode').value;
-      if (entered === "123456") { // simulasi OTP
-        alert("Verifikasi berhasil!");
-        document.getElementById('otpSection').style.display = 'none';
-        document.getElementById('tarifSection').style.display = 'block';
-      } else {
-        alert("Kode OTP salah. Coba lagi.");
+    async function verifyOTP() {
+      const email = document.getElementById('emailInput').value.trim();
+      const otp = document.getElementById('otpCode').value.trim();
+      if (!otp) return alert("Masukkan kode OTP.");
+
+      try {
+        const response = await fetch(`${GAS_URL}?action=verify&email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`);
+        const result = await response.text();
+        if (result.includes("valid")) {
+          alert("Verifikasi berhasil!");
+          document.getElementById('otpSection').style.display = 'none';
+          document.getElementById('tarifSection').style.display = 'block';
+          window.scrollTo({ top: document.getElementById('tarifSection').offsetTop, behavior: 'smooth' });
+        } else {
+          alert(result);
+        }
+      } catch (err) {
+        alert("Gagal memverifikasi OTP: " + err.message);
       }
     }
   </script>
