@@ -124,6 +124,7 @@
   </footer>
 
   <script>
+    // Ganti URL di bawah ini dengan URL Web App Google Apps Script kamu
     const scriptURL = "https://script.google.com/macros/s/AKfycby8zfJzs2N8ADFyXPMotedef-5waIghREJGpy5D9meeJE1DPjcb7gZ43gFPwa6nAb8_9g/exec";
 
     async function sendOTP() {
@@ -138,10 +139,10 @@
           alert("Kode OTP telah dikirim ke email Anda.");
           document.getElementById("otp-input").style.display = "block";
         } else {
-          alert("Gagal mengirim OTP. Silakan coba lagi.");
+          alert(data.message || "Gagal mengirim OTP. Silakan coba lagi.");
         }
       } catch (err) {
-        alert("Terjadi kesalahan koneksi ke server.");
+        alert("Terjadi kesalahan koneksi ke server. Pastikan koneksi internet stabil.");
       }
     }
 
@@ -160,10 +161,10 @@
           document.getElementById("lowongan").style.display = "block";
           document.getElementById("otp-section").style.display = "none";
         } else {
-          alert("Kode OTP salah atau sudah kadaluarsa.");
+          alert(data.message || "Kode OTP salah atau sudah kadaluarsa.");
         }
       } catch (err) {
-        alert("Terjadi kesalahan koneksi ke server.");
+        alert("Terjadi kesalahan koneksi ke server. Silakan coba lagi.");
       }
     }
   </script>
