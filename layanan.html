@@ -115,10 +115,11 @@
   </footer>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbyI1WcaQ5mp3dq_KHMrL8zdZYOy19N0i4p2aV-CfDVpuxQ369_XQkxeHE2w3iG5Kox6/exec";
+    // ✅ Ganti URL Apps Script terbaru di sini
+    const scriptURL = "https://script.google.com/macros/s/AKfycbzuHwI_PJf4y0mHs9MqWygQKqJTyz2GgJ_XCHHCrAkkySLxibbjz9bS9nZtFHFgv9v6/exec";
 
     async function sendOTP() {
-      const email = document.getElementById("email").value;
+      const email = document.getElementById("email").value.trim();
       const msg = document.getElementById("message");
       msg.textContent = "";
 
@@ -137,7 +138,7 @@
         const data = await response.json();
 
         if (data.success) {
-          msg.textContent = "Kode OTP telah dikirim ke email Anda.";
+          msg.textContent = "✅ Kode OTP telah dikirim ke email Anda.";
           msg.style.color = "green";
           document.getElementById("otp-input").style.display = "block";
         } else {
@@ -145,14 +146,14 @@
           msg.style.color = "red";
         }
       } catch (error) {
-        msg.textContent = "⚠️ Tidak dapat terhubung ke server. Pastikan Apps Script diatur ke publik.";
+        msg.textContent = "⚠️ Tidak dapat terhubung ke server. Pastikan Apps Script diatur ke publik (Anyone).";
         msg.style.color = "red";
       }
     }
 
     async function verifyOTP() {
-      const email = document.getElementById("email").value;
-      const otp = document.getElementById("otp").value;
+      const email = document.getElementById("email").value.trim();
+      const otp = document.getElementById("otp").value.trim();
       const msg = document.getElementById("message");
       msg.textContent = "";
 
@@ -171,10 +172,11 @@
         const data = await response.json();
 
         if (data.verified) {
-          msg.textContent = "✅ Verifikasi berhasil! Dokumen bisa dibuka.";
+          msg.textContent = "✅ Verifikasi berhasil! Dokumen dan info lowongan dapat diakses.";
           msg.style.color = "green";
           document.getElementById("tarif-link").style.display = "block";
           document.getElementById("lowongan").style.display = "block";
+          document.getElementById("otp-section").style.display = "none";
         } else {
           msg.textContent = data.message || "Kode OTP salah atau kadaluarsa.";
           msg.style.color = "red";
