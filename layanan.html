@@ -4,60 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Layanan | Assistenku</title>
-  <link rel="stylesheet" href="style.css">
   <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fff; color: #333; }
+    header, footer { background-color: #007bff; color: white; text-align: center; padding: 15px; }
+    nav a { margin: 0 10px; color: white; text-decoration: none; }
+    nav a.active { text-decoration: underline; }
+    h2, h3 { text-align: center; }
     p, li { text-align: justify; }
-    .konsultasi {
-      background-color: #e6f0ff;
-      border: 1px solid #bcd4ff;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 30px;
-      text-align: center;
-    }
     .btn {
-      display: inline-block;
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      margin: 10px;
-      font-weight: bold;
-      cursor: pointer;
+      display: inline-block; background-color: #007bff; color: white;
+      padding: 10px 20px; border-radius: 5px; text-decoration: none;
+      margin: 10px; font-weight: bold; cursor: pointer;
     }
     .btn:hover { background-color: #0056b3; }
-    .tagline { text-align: center; }
-    .otp-section {
-      display: none;
-      background-color: #f4faff;
-      border: 1px solid #cce5ff;
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 30px;
-      text-align: center;
-    }
-    .tarif-section {
-      display: none;
-      margin-top: 30px;
-      text-align: center;
+    .konsultasi, .otp-section, .tarif-section {
+      background: #f7faff; border: 1px solid #cce5ff; padding: 20px;
+      border-radius: 10px; margin: 20px auto; max-width: 600px; text-align: center;
     }
     input {
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      width: 80%;
-      max-width: 300px;
+      padding: 10px; border-radius: 5px; border: 1px solid #ccc;
+      width: 80%; max-width: 300px;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="header-content">
-      <img src="logo.png" alt="Logo Assistenku" class="logo">
-      <h1>Assistenku</h1>
-      <p class="tagline">Melayani Dengan Hati, Membantu Sepenuh Hati</p>
-    </div>
+    <h1>Assistenku</h1>
+    <p>Melayani Dengan Hati, Membantu Sepenuh Hati</p>
     <nav>
       <a href="index.html">Beranda</a>
       <a href="profil.html">Profil</a>
@@ -71,43 +44,36 @@
     <section>
       <h2>Layanan Kami</h2>
       <ul>
-        <li>Asisten pribadi dan perawat lansia</li>
-        <li>ART, baby sitter, dan petugas kebersihan</li>
-        <li>Tukang kebun, pertukangan, dan sopir pribadi</li>
+        <li>Asisten pribadi & perawat lansia</li>
+        <li>ART, baby sitter, petugas kebersihan</li>
+        <li>Tukang kebun, pertukangan, sopir pribadi</li>
       </ul>
-      <p>Kami memastikan seluruh tenaga kami berpengalaman dan terpercaya.</p>
     </section>
 
     <section class="konsultasi">
-      <h2>Konsultasikan</h2>
-      <p>
-        Tertarik untuk konsultasi kebutuhan assisten yang terbaik untukmu? 
-        Unduh formulir di bawah ini, isi formulirnya, lalu scan dan kirimkan kembali ke email kami.
-      </p>
+      <h2>Konsultasi</h2>
+      <p>Unduh formulir di bawah, isi, lalu kirim ke email kami.</p>
       <a href="https://drive.google.com/file/d/1Bx5RE9yJV1b1Myaz6TvfJHWfKWEzviE0/view?usp=drivesdk" 
          class="btn" target="_blank">Unduh Formulir</a>
       <a href="mailto:kontakassistenku@gmail.com" class="btn">Kirim ke Email</a>
-
       <div style="margin-top: 30px;">
         <button class="btn" onclick="showOTPForm()">Lihat Tarif Layanan</button>
       </div>
     </section>
 
-    <!-- OTP Form Section -->
-    <section id="otpSection" class="otp-section">
+    <section id="otpSection" class="otp-section" style="display:none;">
       <h3>Verifikasi Email</h3>
       <p>Masukkan email Anda untuk menerima kode OTP.</p>
       <input type="email" id="emailInput" placeholder="nama@email.com"><br><br>
-      <button class="btn" onclick="sendOTP()">Kirim OTP ke Email</button>
-      <p id="otpStatus" style="color:green; display:none;">OTP telah dikirim. Periksa email Anda.</p>
+      <button class="btn" onclick="sendOTP()">Kirim OTP</button>
+      <p id="otpStatus" style="color:green; display:none;">Mengirim OTP...</p>
       <div id="otpInputSection" style="display:none;">
         <input type="text" id="otpCode" placeholder="Masukkan Kode OTP"><br><br>
-        <button class="btn" onclick="verifyOTP()">Submit OTP</button>
+        <button class="btn" onclick="verifyOTP()">Verifikasi</button>
       </div>
     </section>
 
-    <!-- Tarif Section -->
-    <section id="tarifSection" class="tarif-section">
+    <section id="tarifSection" class="tarif-section" style="display:none;">
       <h2>Tarif Layanan</h2>
       <iframe 
         src="https://drive.google.com/file/d/1IlsMLZmoG-dQso164iUSP8Dw_Z-VCNtZ/view?usp=drivesdk" 
@@ -120,62 +86,58 @@
   </footer>
 
   <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw14bKLvru-ArKrZwkIvdxRMk50y0YWyyW7U07lgRsGSX0oHBkzJBPpbwtHpGHw4MoxXw/exec"; // Ganti dengan URL baru kamu
+    // === GANTI URL INI DENGAN LINK DEPLOY SCRIPTMU ===
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbylYf5sopCrWfWYJaBxc9atetMDRcQwRtVAP8NVcKyaf5ro0MLmsOSuEKCIcjsRf370/exec";
 
-function showOTPForm() {
-  document.getElementById('otpSection').style.display = 'block';
-}
-
-async function sendOTP() {
-  const email = document.getElementById('emailInput').value.trim();
-  if (!email) return alert("Masukkan email terlebih dahulu.");
-
-  try {
-    document.getElementById("otpStatus").innerText = "Mengirim OTP...";
-    document.getElementById("otpStatus").style.display = "block";
-
-    const res = await fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email })
-    });
-
-    const data = await res.json();
-    if (data.success) {
-      document.getElementById("otpStatus").innerText = "OTP telah dikirim ke email Anda.";
-      document.getElementById("otpInputSection").style.display = "block";
-    } else {
-      alert("Gagal mengirim OTP: " + data.error);
-      document.getElementById("otpStatus").innerText = "Gagal mengirim OTP.";
+    function showOTPForm() {
+      document.getElementById('otpSection').style.display = 'block';
     }
-  } catch (e) {
-    alert("Terjadi kesalahan: " + e.message);
-    document.getElementById("otpStatus").innerText = "Kesalahan jaringan.";
-  }
-}
 
-async function verifyOTP() {
-  const email = document.getElementById('emailInput').value.trim();
-  const otp = document.getElementById('otpCode').value.trim();
-  if (!otp) return alert("Masukkan kode OTP.");
+    async function sendOTP() {
+      const email = document.getElementById('emailInput').value.trim();
+      if (!email) return alert("Masukkan email terlebih dahulu.");
 
-  try {
-    const res = await fetch(`${SCRIPT_URL}?email=${encodeURIComponent(email)}&otp=${otp}`);
-    const data = await res.json();
+      const otpStatus = document.getElementById("otpStatus");
+      otpStatus.style.display = "block";
+      otpStatus.innerText = "Mengirim OTP...";
 
-    if (data.success) {
-      alert("Verifikasi berhasil!");
-      document.getElementById('otpSection').style.display = 'none';
-      document.getElementById('tarifSection').style.display = 'block';
-    } else {
-      alert("Kode OTP salah atau kadaluarsa.");
+      try {
+        const res = await fetch(`${SCRIPT_URL}?action=sendOTP&email=${encodeURIComponent(email)}`);
+        const data = await res.json();
+
+        if (data.status === "success") {
+          otpStatus.innerText = "OTP telah dikirim ke email Anda.";
+          document.getElementById("otpInputSection").style.display = "block";
+        } else {
+          otpStatus.style.display = "none";
+          alert("Gagal mengirim OTP: " + (data.message || "Tidak diketahui."));
+        }
+      } catch (err) {
+        otpStatus.style.display = "none";
+        alert("Terjadi kesalahan: " + err.message);
+      }
     }
-  } catch (e) {
-    alert("Terjadi kesalahan: " + e.message);
-  }
-}
-</script>
 
+    async function verifyOTP() {
+      const email = document.getElementById('emailInput').value.trim();
+      const otp = document.getElementById('otpCode').value.trim();
+      if (!otp) return alert("Masukkan kode OTP.");
+
+      try {
+        const res = await fetch(`${SCRIPT_URL}?action=verifyOTP&email=${encodeURIComponent(email)}&otp=${otp}`);
+        const data = await res.json();
+
+        if (data.status === "verified") {
+          alert("Verifikasi berhasil!");
+          document.getElementById('otpSection').style.display = 'none';
+          document.getElementById('tarifSection').style.display = 'block';
+        } else {
+          alert("Kode OTP salah atau sudah kadaluarsa.");
+        }
+      } catch (err) {
+        alert("Terjadi kesalahan: " + err.message);
+      }
+    }
+  </script>
 </body>
 </html>
-
