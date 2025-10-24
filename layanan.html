@@ -120,55 +120,62 @@
   </footer>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw14bKLvru-ArKrZwkIvdxRMk50y0YWyyW7U07lgRsGSX0oHBkzJBPpbwtHpGHw4MoxXw/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw14bKLvru-ArKrZwkIvdxRMk50y0YWyyW7U07lgRsGSX0oHBkzJBPpbwtHpGHw4MoxXw/exec"; // Ganti dengan URL baru kamu
 
-    function showOTPForm() {
-      document.getElementById('otpSection').style.display = 'block';
+function showOTPForm() {
+  document.getElementById('otpSection').style.display = 'block';
+}
+
+async function sendOTP() {
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email) return alert("Masukkan email terlebih dahulu.");
+
+  try {
+    document.getElementById("otpStatus").innerText = "Mengirim OTP...";
+    document.getElementById("otpStatus").style.display = "block";
+
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById("otpStatus").innerText = "OTP telah dikirim ke email Anda.";
+      document.getElementById("otpInputSection").style.display = "block";
+    } else {
+      alert("Gagal mengirim OTP: " + data.error);
+      document.getElementById("otpStatus").innerText = "Gagal mengirim OTP.";
     }
+  } catch (e) {
+    alert("Terjadi kesalahan: " + e.message);
+    document.getElementById("otpStatus").innerText = "Kesalahan jaringan.";
+  }
+}
 
-    async function sendOTP() {
-      const email = document.getElementById('emailInput').value.trim();
-      if (!email) return alert("Masukkan email terlebih dahulu.");
+async function verifyOTP() {
+  const email = document.getElementById('emailInput').value.trim();
+  const otp = document.getElementById('otpCode').value.trim();
+  if (!otp) return alert("Masukkan kode OTP.");
 
-      try {
-        document.getElementById("otpStatus").innerText = "Mengirim OTP...";
-        document.getElementById("otpStatus").style.display = "block";
+  try {
+    const res = await fetch(`${SCRIPT_URL}?email=${encodeURIComponent(email)}&otp=${otp}`);
+    const data = await res.json();
 
-        const res = await fetch(SCRIPT_URL + "?action=sendOTP&email=" + encodeURIComponent(email));
-        const data = await res.json();
-
-        if (data.status === "success") {
-          document.getElementById("otpStatus").innerText = "OTP telah dikirim ke email Anda.";
-          document.getElementById("otpInputSection").style.display = "block";
-        } else {
-          alert("Gagal mengirim OTP: " + data.message);
-        }
-      } catch (e) {
-        alert("Terjadi kesalahan saat mengirim OTP: " + e.message);
-      }
+    if (data.success) {
+      alert("Verifikasi berhasil!");
+      document.getElementById('otpSection').style.display = 'none';
+      document.getElementById('tarifSection').style.display = 'block';
+    } else {
+      alert("Kode OTP salah atau kadaluarsa.");
     }
+  } catch (e) {
+    alert("Terjadi kesalahan: " + e.message);
+  }
+}
+</script>
 
-    async function verifyOTP() {
-      const email = document.getElementById('emailInput').value.trim();
-      const otp = document.getElementById('otpCode').value.trim();
-
-      if (!otp) return alert("Masukkan kode OTP.");
-
-      try {
-        const res = await fetch(SCRIPT_URL + "?action=verifyOTP&email=" + encodeURIComponent(email) + "&otp=" + otp);
-        const data = await res.json();
-
-        if (data.status === "verified") {
-          alert("Verifikasi berhasil!");
-          document.getElementById('otpSection').style.display = 'none';
-          document.getElementById('tarifSection').style.display = 'block';
-        } else {
-          alert("Kode OTP salah atau sudah kadaluarsa.");
-        }
-      } catch (e) {
-        alert("Terjadi kesalahan saat verifikasi OTP: " + e.message);
-      }
-    }
-  </script>
 </body>
 </html>
+
