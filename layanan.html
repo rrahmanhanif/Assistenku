@@ -41,6 +41,11 @@
       border: 1px solid #ccc;
     }
 
+    .msg {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
     #tarif-download, #lowongan { display: none; }
   </style>
 </head>
@@ -75,15 +80,16 @@
     <section class="otp-box">
       <h2>Verifikasi Pengguna</h2>
       <div id="otp-section">
-        <p>Masukkan email Anda untuk menerima kode OTP sebelum mengakses tarif layanan.</p>
-        <input type="email" id="email" placeholder="Masukkan email Anda">
-        <button class="btn" onclick="sendOTP()">Kirim OTP</button>
+        <p>Masukkan nomor WhatsApp Anda untuk menerima kode OTP sebelum mengakses tarif layanan.</p>
+        <input type="text" id="phone" placeholder="Nomor WhatsApp (628...)" />
+        <button class="btn" onclick="kirimOTP()">Kirim OTP</button>
 
         <div id="otp-input" style="display:none;">
-          <p>Masukkan OTP yang dikirim ke email Anda:</p>
+          <p>Masukkan kode OTP yang dikirim ke WhatsApp Anda:</p>
           <input type="text" id="otp" placeholder="Masukkan kode OTP">
-          <button class="btn" onclick="verifyOTP()">Verifikasi OTP</button>
+          <button class="btn" onclick="verifikasiOTP()">Verifikasi OTP</button>
         </div>
+        <div id="msg" class="msg"></div>
       </div>
     </section>
 
@@ -95,7 +101,7 @@
          class="btn" target="_blank">Unduh Tarif</a>
     </section>
 
-    <!-- Info lowongan kerja (hanya muncul setelah OTP valid) -->
+    <!-- Info lowongan kerja -->
     <section class="konsultasi" id="lowongan">
       <h2>Lowongan Kerja Tersedia</h2>
       <p>Hanya calon pekerja yang telah diverifikasi dapat melihat detail lowongan kerja dan upahnya.</p>
@@ -124,48 +130,62 @@
   </footer>
 
   <script>
-    // Ganti URL di bawah ini dengan URL Web App Google Apps Script kamu
-    const scriptURL = "https://script.google.com/macros/s/AKfycby8zfJzs2N8ADFyXPMotedef-5waIghREJGpy5D9meeJE1DPjcb7gZ43gFPwa6nAb8_9g/exec";
+    // API URL dari Google Apps Script kamu
+    const API_URL = "https://script.google.com/macros/s/AKfycbwHtkmfYCt2kOHBCJVmNJyXY4XExI38Isovp3joYwx7C9uLF3a2PzRrtk2BbUZlF0SjTw/exec";
 
-    async function sendOTP() {
-      const email = document.getElementById("email").value;
-      if (!email) return alert("Masukkan email terlebih dahulu.");
+    async function kirimOTP() {
+      const phone = document.getElementById("phone").value.trim();
+      if (!phone) return tampilkanPesan("Nomor tidak boleh kosong!", "red");
 
+      tampilkanPesan("Mengirim OTP...", "blue");
       try {
-        const res = await fetch(`${scriptURL}?action=sendOTP&email=${encodeURIComponent(email)}`);
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "kirimOTP", phone })
+        });
         const data = await res.json();
-
-        if (data.success) {
-          alert("Kode OTP telah dikirim ke email Anda.");
+        if (data.status === "success" || data.message?.includes("dikirim")) {
+          tampilkanPesan("OTP telah dikirim ke WhatsApp Anda.", "green");
           document.getElementById("otp-input").style.display = "block";
         } else {
-          alert(data.message || "Gagal mengirim OTP. Silakan coba lagi.");
+          tampilkanPesan(data.message || "Gagal mengirim OTP.", "red");
         }
-      } catch (err) {
-        alert("Terjadi kesalahan koneksi ke server. Pastikan koneksi internet stabil.");
+      } catch (e) {
+        tampilkanPesan("Gagal menghubungi server!", "red");
       }
     }
 
-    async function verifyOTP() {
-      const email = document.getElementById("email").value;
-      const otp = document.getElementById("otp").value;
-      if (!otp) return alert("Masukkan kode OTP.");
+    async function verifikasiOTP() {
+      const phone = document.getElementById("phone").value.trim();
+      const otp = document.getElementById("otp").value.trim();
+      if (!phone || !otp) return tampilkanPesan("Lengkapi nomor & OTP!", "red");
 
+      tampilkanPesan("Memverifikasi OTP...", "blue");
       try {
-        const res = await fetch(`${scriptURL}?action=verifyOTP&email=${encodeURIComponent(email)}&otp=${encodeURIComponent(otp)}`);
+        const res = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "verifikasiOTP", phone, otp })
+        });
         const data = await res.json();
-
-        if (data.verified) {
-          alert("Verifikasi berhasil! Anda sekarang dapat mengakses tarif dan lowongan kerja.");
+        if (data.status === "success" || data.message?.includes("valid")) {
+          tampilkanPesan("Verifikasi berhasil! Akses tarif & lowongan dibuka.", "green");
           document.getElementById("tarif-download").style.display = "block";
           document.getElementById("lowongan").style.display = "block";
           document.getElementById("otp-section").style.display = "none";
         } else {
-          alert(data.message || "Kode OTP salah atau sudah kadaluarsa.");
+          tampilkanPesan(data.message || "OTP salah atau sudah kadaluarsa.", "red");
         }
-      } catch (err) {
-        alert("Terjadi kesalahan koneksi ke server. Silakan coba lagi.");
+      } catch (e) {
+        tampilkanPesan("Gagal menghubungi server!", "red");
       }
+    }
+
+    function tampilkanPesan(msg, color = "black") {
+      const el = document.getElementById("msg");
+      el.style.color = color;
+      el.textContent = msg;
     }
   </script>
 </body>
