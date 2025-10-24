@@ -86,8 +86,9 @@
   </footer>
 
   <script>
-    const SCRIPT_URL = https://script.google.com/macros/s/AKfycbzQ1XeIriXOCxzFNSATmj5EhpUx2Xhm-iX0KQD6oH1QrFs1DGSEUZuIF49a5-4yMTZQ5g/exec
-    
+    // GANTI INI DENGAN URL DEPLOY KAMU SENDIRI
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbylYf5sopCrWfWYJaBxc9atetMDRcQwRtVAP8NVcKyaf5ro0MLmsOSuEKCIcjsRf370/exec";
+
     function showOTPForm() {
       document.getElementById('otpSection').style.display = 'block';
     }
@@ -96,23 +97,21 @@
       const email = document.getElementById('emailInput').value.trim();
       if (!email) return alert("Masukkan email terlebih dahulu.");
 
-      const otpStatus = document.getElementById("otpStatus");
-      otpStatus.style.display = "block";
-      otpStatus.innerText = "Mengirim OTP...";
+      document.getElementById("otpStatus").style.display = "block";
+      document.getElementById("otpStatus").innerText = "Mengirim OTP...";
 
       try {
         const res = await fetch(`${SCRIPT_URL}?action=sendOTP&email=${encodeURIComponent(email)}`);
-        const data = await res.json();
+        const text = await res.text();
+        const data = JSON.parse(text);
 
         if (data.status === "success") {
-          otpStatus.innerText = "OTP telah dikirim ke email Anda.";
+          document.getElementById("otpStatus").innerText = "OTP telah dikirim ke email Anda.";
           document.getElementById("otpInputSection").style.display = "block";
         } else {
-          otpStatus.style.display = "none";
-          alert("Gagal mengirim OTP: " + (data.message || "Tidak diketahui."));
+          alert("Gagal mengirim OTP: " + data.message);
         }
       } catch (err) {
-        otpStatus.style.display = "none";
         alert("Terjadi kesalahan: " + err.message);
       }
     }
@@ -124,7 +123,8 @@
 
       try {
         const res = await fetch(`${SCRIPT_URL}?action=verifyOTP&email=${encodeURIComponent(email)}&otp=${otp}`);
-        const data = await res.json();
+        const text = await res.text();
+        const data = JSON.parse(text);
 
         if (data.status === "verified") {
           alert("Verifikasi berhasil!");
@@ -140,5 +140,3 @@
   </script>
 </body>
 </html>
-
-
