@@ -56,4 +56,119 @@
     <div class="header-content">
       <img src="logo.png" alt="Logo Assistenku" class="logo">
       <h1>Assistenku</h1>
-      <p class="tagline">Melayani Dengan Ha
+      <p class="tagline">Melayani Dengan Hati, Membantu Sepenuh Hati</p>
+    </div>
+    <nav>
+      <a href="index.html">Beranda</a>
+      <a href="profil.html">Profil</a>
+      <a href="layanan.html" class="active">Layanan</a>
+      <a href="karir.html">Karir</a>
+      <a href="kontak.html">Kontak</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Layanan Kami</h2>
+      <ul>
+        <li>Asisten pribadi dan perawat lansia</li>
+        <li>ART, baby sitter, dan petugas kebersihan</li>
+        <li>Tukang kebun, pertukangan, dan sopir pribadi</li>
+      </ul>
+      <p>Kami memastikan seluruh tenaga kami berpengalaman dan terpercaya.</p>
+    </section>
+
+    <section class="konsultasi">
+      <h2>Konsultasikan</h2>
+      <p>
+        Tertarik untuk konsultasi kebutuhan assisten yang terbaik untukmu? 
+        Unduh formulir di bawah ini, isi formulirnya, lalu scan dan kirimkan kembali ke email kami.
+      </p>
+      <a href="https://drive.google.com/file/d/1Bx5RE9yJV1b1Myaz6TvfJHWfKWEzviE0/view?usp=drivesdk" 
+         class="btn" target="_blank">Unduh Formulir</a>
+      <a href="mailto:kontakassistenku@gmail.com" class="btn">Kirim ke Email</a>
+
+      <div style="margin-top: 30px;">
+        <button class="btn" onclick="showOTPForm()">Lihat Tarif Layanan</button>
+      </div>
+    </section>
+
+    <!-- OTP Form Section -->
+    <section id="otpSection" class="otp-section">
+      <h3>Verifikasi Email</h3>
+      <p>Masukkan email Anda untuk menerima kode OTP.</p>
+      <input type="email" id="emailInput" placeholder="nama@email.com"><br><br>
+      <button class="btn" onclick="sendOTP()">Kirim OTP ke Email</button>
+      <p id="otpStatus" style="color:green; display:none;">OTP telah dikirim. Periksa email Anda.</p>
+      <div id="otpInputSection" style="display:none;">
+        <input type="text" id="otpCode" placeholder="Masukkan Kode OTP"><br><br>
+        <button class="btn" onclick="verifyOTP()">Submit OTP</button>
+      </div>
+    </section>
+
+    <!-- Tarif Section -->
+    <section id="tarifSection" class="tarif-section">
+      <h2>Tarif Layanan</h2>
+      <iframe 
+        src="https://drive.google.com/file/d/1IlsMLZmoG-dQso164iUSP8Dw_Z-VCNtZ/view?usp=drivesdk" 
+        width="100%" height="500px"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Assistenku. Semua Hak Dilindungi.</p>
+  </footer>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw14bKLvru-ArKrZwkIvdxRMk50y0YWyyW7U07lgRsGSX0oHBkzJBPpbwtHpGHw4MoxXw/exec";
+
+    function showOTPForm() {
+      document.getElementById('otpSection').style.display = 'block';
+    }
+
+    async function sendOTP() {
+      const email = document.getElementById('emailInput').value.trim();
+      if (!email) return alert("Masukkan email terlebih dahulu.");
+
+      try {
+        document.getElementById("otpStatus").innerText = "Mengirim OTP...";
+        document.getElementById("otpStatus").style.display = "block";
+
+        const res = await fetch(SCRIPT_URL + "?action=sendOTP&email=" + encodeURIComponent(email));
+        const data = await res.json();
+
+        if (data.status === "success") {
+          document.getElementById("otpStatus").innerText = "OTP telah dikirim ke email Anda.";
+          document.getElementById("otpInputSection").style.display = "block";
+        } else {
+          alert("Gagal mengirim OTP: " + data.message);
+        }
+      } catch (e) {
+        alert("Terjadi kesalahan saat mengirim OTP: " + e.message);
+      }
+    }
+
+    async function verifyOTP() {
+      const email = document.getElementById('emailInput').value.trim();
+      const otp = document.getElementById('otpCode').value.trim();
+
+      if (!otp) return alert("Masukkan kode OTP.");
+
+      try {
+        const res = await fetch(SCRIPT_URL + "?action=verifyOTP&email=" + encodeURIComponent(email) + "&otp=" + otp);
+        const data = await res.json();
+
+        if (data.status === "verified") {
+          alert("Verifikasi berhasil!");
+          document.getElementById('otpSection').style.display = 'none';
+          document.getElementById('tarifSection').style.display = 'block';
+        } else {
+          alert("Kode OTP salah atau sudah kadaluarsa.");
+        }
+      } catch (e) {
+        alert("Terjadi kesalahan saat verifikasi OTP: " + e.message);
+      }
+    }
+  </script>
+</body>
+</html>
