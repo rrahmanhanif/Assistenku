@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verifikasi OTP | Assistenku</title>
+  <title>Verifikasi Email | Assistenku</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,103 +12,123 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 0;
     }
     .container {
       background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 320px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
       text-align: center;
-    }
-    h2 {
-      color: #007bff;
-      margin-bottom: 20px;
     }
     input {
       width: 90%;
       padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
+      margin: 8px 0;
       border: 1px solid #ccc;
-      font-size: 16px;
+      border-radius: 6px;
     }
     button {
-      width: 100%;
-      padding: 12px;
-      background: #007bff;
+      width: 95%;
+      padding: 10px;
       border: none;
+      background: #007bff;
       color: white;
-      font-size: 16px;
-      border-radius: 8px;
+      border-radius: 6px;
       cursor: pointer;
-      margin-top: 10px;
+      font-size: 16px;
     }
     button:hover {
       background: #0056b3;
     }
-    .msg {
-      margin-top: 15px;
-      font-weight: bold;
+    #otpSection {
+      display: none;
     }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <h2>Verifikasi OTP Assistenku</h2>
-    <input type="text" id="phone" placeholder="Nomor WhatsApp (628...)" />
-    <input type="text" id="otp" placeholder="Masukkan OTP (jika sudah dikirim)" />
-    <button onclick="kirimOTP()">Kirim OTP</button>
-    <button onclick="verifikasiOTP()">Verifikasi OTP</button>
-    <div id="msg" class="msg"></div>
+    <h2>Verifikasi Email</h2>
+    <div id="emailSection">
+      <input type="email" id="email" placeholder="Masukkan alamat email anda" required>
+      <button onclick="kirimOTP()">Kirim OTP</button>
+    </div>
+
+    <div id="otpSection">
+      <p>Kode OTP telah dikirim ke email Anda.</p>
+      <input type="text" id="otp" placeholder="Masukkan kode OTP">
+      <button onclick="verifikasiOTP()">Verifikasi</button>
+    </div>
+
+    <p id="status"></p>
   </div>
 
   <script>
-    const API_URL = "https://script.google.com/macros/s/AKfycbwHtkmfYCt2kOHBCJVmNJyXY4XExI38Isovp3joYwx7C9uLF3a2PzRrtk2BbUZlF0SjTw/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyHbLw8Z46jJK8ApbPmmdB-G9Rc9iZTgi8s304LPcmue5GWN9sPnHd8oblx5ISF25b6qA/exec";
 
     async function kirimOTP() {
-      const phone = document.getElementById("phone").value.trim();
-      if (!phone) return tampilkanPesan("Nomor tidak boleh kosong!", "red");
+      const email = document.getElementById("email").value.trim();
+      const status = document.getElementById("status");
 
-      tampilkanPesan("Mengirim OTP...", "blue");
+      if (!email) {
+        alert("Masukkan alamat email terlebih dahulu!");
+        return;
+      }
+
+      status.textContent = "Mengirim kode OTP...";
       try {
-        const res = await fetch(API_URL, {
+        const response = await fetch(scriptURL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "kirimOTP", phone })
+          body: JSON.stringify({ action: "sendOTP", email })
         });
-        const data = await res.json();
-        tampilkanPesan(data.message || "OTP dikirim!", "green");
-      } catch (e) {
-        tampilkanPesan("Gagal menghubungi server!", "red");
+        const result = await response.json();
+
+        if (result.success) {
+          status.textContent = "OTP telah dikirim ke email Anda.";
+          document.getElementById("emailSection").style.display = "none";
+          document.getElementById("otpSection").style.display = "block";
+        } else {
+          status.textContent = "Gagal mengirim OTP.";
+        }
+      } catch (error) {
+        console.error(error);
+        status.textContent = "Terjadi kesalahan koneksi ke server.";
       }
     }
 
     async function verifikasiOTP() {
-      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
       const otp = document.getElementById("otp").value.trim();
-      if (!phone || !otp) return tampilkanPesan("Lengkapi nomor & OTP!", "red");
+      const status = document.getElementById("status");
 
-      tampilkanPesan("Memverifikasi OTP...", "blue");
+      if (!otp) {
+        alert("Masukkan kode OTP!");
+        return;
+      }
+
+      status.textContent = "Memverifikasi kode...";
       try {
-        const res = await fetch(API_URL, {
+        const response = await fetch(scriptURL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "verifikasiOTP", phone, otp })
+          body: JSON.stringify({ action: "verifyOTP", email, otp })
         });
-        const data = await res.json();
-        tampilkanPesan(data.message || "Verifikasi selesai!", data.status === "success" ? "green" : "red");
-      } catch (e) {
-        tampilkanPesan("Gagal menghubungi server!", "red");
+        const result = await response.json();
+
+        if (result.verified) {
+          status.textContent = "✅ OTP berhasil diverifikasi!";
+          document.getElementById("otpSection").style.display = "none";
+        } else {
+          status.textContent = "❌ OTP salah atau kadaluarsa.";
+        }
+      } catch (error) {
+        console.error(error);
+        status.textContent = "Gagal terhubung ke server.";
       }
     }
-
-    function tampilkanPesan(msg, color = "black") {
-      const el = document.getElementById("msg");
-      el.style.color = color;
-      el.textContent = msg;
-    }
   </script>
+
 </body>
 </html>
