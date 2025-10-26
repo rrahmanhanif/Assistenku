@@ -1,48 +1,54 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Karir | Assistenku</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <style>
-    main section {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      text-align: justify;
-      line-height: 1.6;
-    }
-    main section img {
-      display: block;
-      margin: 20px auto;
-      max-width: 100%;
-      border-radius: 10px;
-    }
-    .apply-button {
-      display: block;
-      width: fit-content;
-      margin: 20px auto;
-      padding: 12px 25px;
+    body { font-family: Arial, sans-serif; background-color: #f9fcff; color: #222; }
+    header { background-color: #007bff; color: white; text-align: center; padding: 20px 10px; }
+    nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
+    nav a.active { text-decoration: underline; }
+    .btn {
+      display: inline-block;
       background-color: #007bff;
       color: white;
-      font-weight: bold;
-      text-decoration: none;
+      padding: 10px 20px;
       border-radius: 8px;
-      transition: background-color 0.3s ease;
+      text-decoration: none;
+      margin-top: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
     }
-    .apply-button:hover {
-      background-color: #0056b3;
+    .btn[disabled] { opacity: 0.6; cursor: not-allowed; background-color: gray; }
+    main { text-align: center; padding: 20px; }
+    footer { background-color: #007bff; color: white; text-align: center; padding: 10px; margin-top: 30px; }
+
+    /* Modal konfirmasi */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; }
+    .modal { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.25); max-width: 360px; text-align: center; }
+
+    /* Kotak admin kecil (pojok) */
+    #adminBox {
+      position: fixed; right: 12px; bottom: 12px; width: 220px;
+      background: rgba(255,255,255,0.95); border: 1px solid #ccc; border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12); padding: 8px; font-size: 13px; z-index: 9999;
     }
+    #adminBox h4 { margin: 0 0 6px 0; font-size: 13px; color:#333; }
+    #adminBox input[type="password"] { width: calc(100% - 12px); padding:6px; margin-bottom:6px; border-radius:4px; border:1px solid #bbb; }
+    #adminBox button { width:100%; padding:8px; border-radius:6px; border:none; cursor:pointer; font-weight:bold; }
+    #adminAuthBtn { background:#007bff; color:white; }
+    #adminResetBtn { background:#ff4d4f; color:white; display:none; margin-top:6px; }
+    #adminLogoutBtn { background:#999; color:white; display:none; margin-top:6px; }
+    #adminMsg { font-size:12px; color:#555; margin-top:6px; min-height:16px; }
   </style>
 </head>
 <body>
   <header>
-    <div class="header-content">
-      <img src="logo.png" alt="Logo Assistenku" class="logo">
-      <h1>Assistenku</h1>
-      <p class="tagline">Melayani Dengan Hati, Membantu Sepenuh Hati</p>
-    </div>
+    <h1>Assistenku</h1>
+    <p>Melayani Dengan Hati, Membantu Sepenuh Hati</p>
     <nav>
       <a href="index.html">Beranda</a>
       <a href="profil.html">Profil</a>
@@ -53,21 +59,162 @@
   </header>
 
   <main>
-    <section>
-      <h2>Bergabung Bersama Kami</h2>
-      <p>
-        Kami membuka kesempatan bagi yang berniat mencari kerja untuk bergabung menjadi bagian dari <strong>Assistenku</strong>.  
-        Jika Anda memiliki semangat kerja tinggi, jujur, dan siap melayani dengan hati, kirimkan CV Anda ke email:  
-        <strong>karir@assistenku.id</strong>
-      </p>
-      <img src="infolowker1.png" alt="Informasi Lowongan Assistenku">
-      <a href="https://mail.google.com/mail/u/3/#inbox?compose=GTvVlcRzDflmRKRfwXdGFXkGbzzWHLcwFLzQmWgTqZWJpCnGbTDPbWtXdrgkrbbfvlFndSgcJCSvd" class="apply-button">Kirim Lamaran Sekarang</a>
-    </section>
+    <h2>Sistem Gaji dan Karir</h2>
+    <p>Klik tombol di bawah ini untuk melihat dokumen sistem gaji dan ketentuan karir di Assistenku. Setelah membuka dokumen ini, akses ke <strong>Daftar Biaya Layanan</strong> akan dikunci permanen di browser ini.</p>
+    <button id="downloadKarir" class="btn">Lihat Sistem Gaji</button>
+    <p id="statusKarir" style="margin-top:10px; color:#555;"></p>
   </main>
 
   <footer>
     <p>© 2025 Assistenku. Semua Hak Dilindungi.</p>
   </footer>
+
+  <!-- Modal Konfirmasi -->
+  <div id="confirmModal" class="modal-backdrop">
+    <div class="modal">
+      <h3>Konfirmasi Akses</h3>
+      <p>⚠️ Setelah Anda membuka dokumen ini, akses ke <strong>Daftar Biaya Layanan</strong> pada halaman Layanan akan dikunci permanen di browser ini. Lanjutkan?</p>
+      <div style="display:flex; gap:8px; margin-top:16px;">
+        <button id="confirmYes" class="btn" style="flex:1;">Ya, Lanjutkan</button>
+        <button id="confirmCancel" class="btn" style="flex:1; background:#aaa;">Batal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kotak Admin Kecil -->
+  <div id="adminBox" aria-hidden="false">
+    <h4>Admin (Soft Reset)</h4>
+    <input id="adminPass" type="password" placeholder="Masukkan password admin" />
+    <button id="adminAuthBtn">Login Admin</button>
+    <button id="adminResetBtn">Reset Akses</button>
+    <button id="adminLogoutBtn">Logout Admin</button>
+    <div id="adminMsg"></div>
+  </div>
+
+  <script>
+    // Konfigurasi link PDF karir
+    const LINK_KARIR = "https://drive.google.com/file/d/1dlXn4orWS12ZJnPsl3wk6T8OhudTl68k/view?usp=drive_link";
+
+    // Elemen UI
+    const downloadBtn = document.getElementById("downloadKarir");
+    const statusText = document.getElementById("statusKarir");
+    const modal = document.getElementById("confirmModal");
+    const yesBtn = document.getElementById("confirmYes");
+    const cancelBtn = document.getElementById("confirmCancel");
+
+    // Admin UI
+    const adminBox = document.getElementById("adminBox");
+    const adminPass = document.getElementById("adminPass");
+    const adminAuthBtn = document.getElementById("adminAuthBtn");
+    const adminResetBtn = document.getElementById("adminResetBtn");
+    const adminLogoutBtn = document.getElementById("adminLogoutBtn");
+    const adminMsg = document.getElementById("adminMsg");
+    const ADMIN_PASSWORD = "Hanif@123";
+
+    // Keys localStorage
+    const KEY_LAYANAN = "akses_layanan";
+    const KEY_KARIR = "akses_karir";
+
+    // Cek status akses pada load
+    function updateStatus() {
+      const aksesLayanan = localStorage.getItem(KEY_LAYANAN) === "true";
+      const aksesKarir = localStorage.getItem(KEY_KARIR) === "true";
+
+      if (aksesLayanan) {
+        downloadBtn.disabled = true;
+        statusText.textContent = "Akses diblokir karena Anda sudah membuka daftar biaya layanan.";
+      } else if (aksesKarir) {
+        downloadBtn.disabled = true;
+        statusText.textContent = "Anda sudah membuka dokumen sistem gaji sebelumnya.";
+      } else {
+        downloadBtn.disabled = false;
+        statusText.textContent = "";
+      }
+    }
+    updateStatus();
+    window.addEventListener("storage", updateStatus);
+
+    // Tombol download: tampilkan modal konfirmasi
+    downloadBtn.addEventListener("click", () => {
+      if (downloadBtn.disabled) return;
+      modal.style.display = "flex";
+    });
+
+    cancelBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    yesBtn.addEventListener("click", () => {
+      // buka link
+      window.open(LINK_KARIR, "_blank");
+
+      // set flags silang
+      localStorage.setItem(KEY_KARIR, "true");
+      localStorage.setItem(KEY_LAYANAN, "true");
+
+      modal.style.display = "none";
+      updateStatus();
+      statusText.textContent = "Berhasil dibuka. Akses ke daftar biaya layanan kini terkunci di browser ini.";
+    });
+
+    // --- Admin: Otentikasi sederhana ---
+    function setAdminAuthenticated(val) {
+      if (val) {
+        sessionStorage.setItem("admin_authenticated", "true");
+      } else {
+        sessionStorage.removeItem("admin_authenticated");
+      }
+      updateAdminUI();
+    }
+
+    function isAdminAuthenticated() {
+      return sessionStorage.getItem("admin_authenticated") === "true";
+    }
+
+    function updateAdminUI() {
+      if (isAdminAuthenticated()) {
+        adminPass.style.display = "none";
+        adminAuthBtn.style.display = "none";
+        adminResetBtn.style.display = "block";
+        adminLogoutBtn.style.display = "block";
+        adminMsg.textContent = "Admin aktif.";
+      } else {
+        adminPass.style.display = "block";
+        adminAuthBtn.style.display = "block";
+        adminResetBtn.style.display = "none";
+        adminLogoutBtn.style.display = "none";
+        adminMsg.textContent = "";
+      }
+    }
+
+    adminAuthBtn.addEventListener("click", () => {
+      const p = adminPass.value || "";
+      if (p === ADMIN_PASSWORD) {
+        setAdminAuthenticated(true);
+        adminPass.value = "";
+        alert("Login admin berhasil. Tombol Reset Akses tersedia.");
+      } else {
+        adminMsg.textContent = "Password salah.";
+        adminMsg.style.color = "red";
+      }
+    });
+
+    adminLogoutBtn.addEventListener("click", () => {
+      setAdminAuthenticated(false);
+      alert("Logout admin berhasil.");
+    });
+
+    adminResetBtn.addEventListener("click", () => {
+      if (!isAdminAuthenticated()) return;
+      if (!confirm("Reset semua kunci akses di browser ini? (tidak bisa dibatalkan)")) return;
+      localStorage.removeItem(KEY_LAYANAN);
+      localStorage.removeItem(KEY_KARIR);
+      updateStatus();
+      alert("Soft reset selesai. Akses dokumen telah dikembalikan seperti semula.");
+    });
+
+    // inisialisasi admin UI pada load
+    updateAdminUI();
+  </script>
 </body>
 </html>
-
