@@ -87,12 +87,12 @@
   </div>
 
   <!-- Modal Admin -->
-  <div id="adminModal" class="modal" style="display:none; position:fixed; inset:0; justify-content:center; align-items:center; background:rgba(0,0,0,0.4); z-index:4000;">
-    <div class="modal-content" style="background:#fff; padding:18px; border-radius:8px; width:320px; max-width:90%;">
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
       <h3>Login Admin</h3>
-      <input id="adminPass" type="password" placeholder="Masukkan Password" style="width:100%; padding:8px; margin-top:8px;">
-      <button id="adminLoginBtn" style="margin-top:10px;">Masuk</button>
-      <p id="adminMsg" style="font-size:12px; color:red; margin-top:8px;"></p>
+      <input id="adminPass" type="password" placeholder="Masukkan Password">
+      <button id="adminLoginBtn">Masuk</button>
+      <p id="adminMsg" style="font-size:12px; color:red;"></p>
     </div>
   </div>
 
@@ -100,9 +100,7 @@
     const LINK_KARIR = "https://drive.google.com/file/d/1dlXn4orWS12ZJnPsl3wk6T8OhudTl68k/view?usp=drive_link";
     const KEY_LAYANAN = "akses_layanan";
     const KEY_KARIR = "akses_karir";
-
-    // Hash SHA-256 dari "Hanif@123"
-    const ADMIN_HASH = "bffdef9d5b7d16537b34de61a6c2d879b0dfab8895534559998575b5a4f222f3";
+    const ADMIN_PASSWORD = "Hanif@123";
 
     const downloadBtn = document.getElementById("downloadKarir");
     const statusText = document.getElementById("statusKarir");
@@ -131,7 +129,6 @@
     downloadBtn.addEventListener("click", () => {
       if (!downloadBtn.disabled) {
         window.open(LINK_KARIR, "_blank");
-        // set penguncian silang: setelah membuka karir, kunci layanan
         localStorage.setItem(KEY_KARIR, "true");
         localStorage.setItem(KEY_LAYANAN, "true");
         updateStatus();
@@ -139,37 +136,14 @@
       }
     });
 
-    // Fungsi helper: hash input text menggunakan Web Crypto API -> hex
-    async function sha256Hex(message) {
-      const enc = new TextEncoder();
-      const data = enc.encode(message);
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    async function verifyAdmin(password) {
-      try {
-        const h = await sha256Hex(password);
-        return h === ADMIN_HASH;
-      } catch (e) {
-        return false;
-      }
-    }
-
-    adminBtn.onclick = () => { adminMsg.textContent = ""; adminPass.value = ""; modal.style.display = "flex"; };
-    adminLoginBtn.onclick = async () => {
-      adminMsg.textContent = "Memeriksa...";
-      const pass = adminPass.value || "";
-      const ok = await verifyAdmin(pass);
-      adminPass.value = "";
-      if (ok) {
+    adminBtn.onclick = () => { modal.style.display = "flex"; };
+    adminLoginBtn.onclick = () => {
+      if (adminPass.value === ADMIN_PASSWORD) {
         localStorage.removeItem(KEY_LAYANAN);
         localStorage.removeItem(KEY_KARIR);
         updateStatus();
         alert("Soft reset berhasil. Akses dikembalikan seperti semula.");
         modal.style.display = "none";
-        adminMsg.textContent = "";
       } else {
         adminMsg.textContent = "Password salah.";
       }
