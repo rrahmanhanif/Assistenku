@@ -4,24 +4,26 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth; /* Scroll halus */
 }
 
 /* ====== Warna utama ====== */
 :root {
-  --primary: #1e90ff;  /* Biru lembut */
-  --primary-dark: #176fd1;
+  --primary: #1e90ff;      /* Biru lembut */
+  --primary-dark: #176fd1; /* Biru lebih gelap */
   --background: #ffffff;
   --text: #333;
+  --shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* ====== Header & Navigasi ====== */
+/* ====== Header ====== */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: var(--background);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background: var(--background);
+  box-shadow: 0 3px 12px var(--shadow);
   z-index: 1000;
 }
 
@@ -33,7 +35,7 @@ header {
 }
 
 .logo {
-  width: 160px; /* Sesuaikan ukuran logo persegi panjang */
+  width: 180px;
   height: auto;
   object-fit: contain;
   margin-bottom: 5px;
@@ -42,12 +44,14 @@ header {
 header h1 {
   font-size: 28px;
   color: var(--primary-dark);
-  margin-bottom: 4px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .tagline {
   font-size: 14px;
-  color: #555;
+  color: #666;
+  margin-top: 4px;
 }
 
 /* ====== Navigasi ====== */
@@ -58,6 +62,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 nav a {
@@ -66,40 +71,49 @@ nav a {
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
-  border-radius: 6px;
-  margin: 6px 4px;
+  border-radius: 8px;
+  margin: 8px 6px;
 }
 
 nav a:hover {
-  background-color: var(--primary-dark);
-  transform: scale(1.05);
+  background: white;
+  color: var(--primary-dark);
+  box-shadow: 0 3px 10px var(--shadow);
+  transform: translateY(-2px);
 }
 
 nav a.active {
-  background-color: white;
+  background: white;
   color: var(--primary-dark);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-weight: 600;
+  box-shadow: 0 2px 6px var(--shadow);
 }
 
-/* ====== Konten Utama ====== */
+/* ====== Konten utama ====== */
 main {
   max-width: 900px;
-  margin: 160px auto 60px auto; /* Tambah jarak untuk header fixed */
-  padding: 0 20px;
+  margin: 190px auto 80px auto; /* Tambah jarak agar tidak menempel header */
+  padding: 0 25px;
   color: var(--text);
-  line-height: 1.7;
+  line-height: 1.8;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
 /* ====== Founder Section ====== */
 .founder {
-  margin-top: 50px;
+  margin-top: 60px;
   text-align: center;
 }
 
 .founder h3 {
   font-size: 22px;
   color: var(--primary-dark);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .founder p {
@@ -117,24 +131,50 @@ main {
 
 .nib {
   width: 260px;
-  height: auto;
   border: 2px solid var(--primary);
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nib:hover {
   transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
 /* ====== Footer ====== */
 footer {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: var(--primary);
   color: white;
-  padding: 18px 0;
+  padding: 18px 30px;
   font-size: 14px;
-  margin-top: 40px;
-  letter-spacing: 0.3px;
-  }
+  margin-top: 60px;
+  box-shadow: 0 -2px 8px var(--shadow);
+}
+
+footer p {
+  margin: 0;
+}
+
+/* ====== Tombol Login Admin ====== */
+.btn-admin {
+  background: white;
+  color: var(--primary-dark);
+  padding: 10px 18px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 3px 8px var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.btn-admin:hover {
+  background: var(--primary-dark);
+  color: white;
+  transform: scale(1.07);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+}
