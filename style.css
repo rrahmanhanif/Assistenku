@@ -1,16 +1,21 @@
-/* ======== STYLE.CSS AMAN UNTUK ASSISTENKU ======== */
+/* ======== STYLE.CSS UNTUK SEMUA HALAMAN ASSISTENKU ======== */
 
-/* Dasar umum */
+/* Reset & dasar keamanan CSS */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f0f6ff;
   color: #222;
+  line-height: 1.6;
   image-rendering: auto;
 }
 
@@ -20,35 +25,60 @@ header {
   color: white;
   text-align: center;
   padding: 20px 10px;
+  user-select: none; /* Cegah seleksi teks untuk anti copy dasar */
+}
+.logo {
+  width: 80px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+.header-content h1 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+.tagline {
+  font-size: 16px;
+  font-style: italic;
 }
 
 /* Navigasi */
 nav {
+  background-color: #005dc1;
   display: flex;
   justify-content: center;
-  background-color: #0056b3;
+  flex-wrap: wrap;
 }
-
 nav a {
   color: white;
   text-decoration: none;
-  padding: 12px 18px;
+  padding: 10px 20px;
   display: inline-block;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+nav a:hover,
+nav a.active {
+  background-color: #003f8a;
 }
 
-nav a:hover {
-  background-color: #003f7f;
-}
-
-/* Konten utama */
+/* Main Content */
 main {
   padding: 20px;
   max-width: 900px;
-  margin: auto;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-
-h1, h2 {
-  color: #004080;
+main h2 {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+main p, main ul {
+  margin-bottom: 15px;
+  text-align: justify;
 }
 
 /* Footer */
@@ -56,13 +86,54 @@ footer {
   background-color: #007bff;
   color: white;
   text-align: center;
-  padding: 15px;
-  margin-top: 30px;
+  padding: 10px 0;
+  font-size: 14px;
+  margin-top: 20px;
 }
 
-/* Mencegah @import dari domain luar */
-@media screen and (max-width: 600px) {
-  nav {
-    flex-direction: column;
-  }
+/* Tombol & link */
+a {
+  color: #007bff;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Daftar */
+ul {
+  list-style: disc;
+  margin-left: 20px;
+}
+
+/* Form (jika nanti ditambahkan) */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+input, textarea, button {
+  font-family: inherit;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #005dc1;
+}
+
+/* 🔒 Tambahan proteksi visual ringan */
+img {
+  -webkit-user-drag: none;
+  pointer-events: none; /* Cegah klik kanan gambar */
+}
+::selection {
+  background-color: #007bff;
+  color: white;
 }
