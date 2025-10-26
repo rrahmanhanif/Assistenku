@@ -1,0 +1,41 @@
+# =========================================
+# 🔐 Proteksi Keamanan Assistenku
+# =========================================
+
+# Aktifkan HTTPS paksa
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Batasi akses direktori & file sensitif
+Options -Indexes
+<FilesMatch "\.(env|json|md|log|config|lock|gitignore|htaccess)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# Security Headers utama
+<IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+</IfModule>
+
+# Cache ringan untuk efisiensi
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 1 hour"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/* "access plus 1 month"
+</IfModule>
+
+# Hindari Error 404 palsu dari karakter aneh
+AddDefaultCharset UTF-8
+
+# =========================================
+# Akhir file keamanan
+# =========================================

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karir | Assistenku</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="logo.png" alt="Logo Assistenku" class="logo">
+      <h1>Assistenku</h1>
+      <p class="tagline">Melayani Dengan Hati, Membantu Sepenuh Hati</p>
+    </div>
+    <nav>
+      <a href="index.html">Beranda</a>
+      <a href="profil.html">Profil</a>
+      <a href="layanan.html">Layanan</a>
+      <a href="karir.html" class="active">Karir</a>
+      <a href="kontak.html">Kontak</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Sistem Gaji dan Karir</h2>
+    <p>Klik tombol di bawah ini untuk melihat dokumen sistem gaji. Setelah membuka dokumen ini, akses ke <strong>Daftar Biaya Layanan</strong> akan dikunci permanen di browser ini.</p>
+    <button id="downloadKarir" class="btn">Lihat Sistem Gaji</button>
+    <p id="statusKarir" style="margin-top:10px; color:#555;"></p>
+  </main>
+
+  <footer>
+    <p>© 2025 Assistenku. Semua Hak Dilindungi.</p>
+    <button id="adminKey" title="Admin">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a5 5 0 0 1 4.9 6.09l4.15 4.15a1 1 0 0 1 0 1.42l-1.83 1.83a1 1 0 0 1-1.41 0L17 14.41l-2 2V18a1 1 0 0 1-1 1H13v-1a1 1 0 0 1-1-1v-2.59l-2-2-1.83 1.83a1 1 0 0 1-1.41 0L4 13.66a1 1 0 0 1 0-1.41L8.15 8.1A5 5 0 0 1 12 2zm0 2a3 3 0 1 0 2.83 4A3 3 0 0 0 12 4z"/></svg>
+    </button>
+  </footer>
+
+  <!-- Modal Admin -->
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <h3>Login Admin</h3>
+      <input id="adminPass" type="password" placeholder="Masukkan Password">
+      <button id="adminLoginBtn">Masuk</button>
+      <p id="adminMsg" style="font-size:12px; color:red;"></p>
+    </div>
+  </div>
+
+  <script>
+    const LINK_KARIR = "https://drive.google.com/file/d/1dlXn4orWS12ZJnPsl3wk6T8OhudTl68k/view?usp=drive_link";
+    const KEY_LAYANAN = "akses_layanan";
+    const KEY_KARIR = "akses_karir";
+    const ADMIN_PASSWORD = "Hanif@123";
+
+    const downloadBtn = document.getElementById("downloadKarir");
+    const statusText = document.getElementById("statusKarir");
+    const adminBtn = document.getElementById("adminKey");
+    const modal = document.getElementById("adminModal");
+    const adminPass = document.getElementById("adminPass");
+    const adminLoginBtn = document.getElementById("adminLoginBtn");
+    const adminMsg = document.getElementById("adminMsg");
+
+    function updateStatus() {
+      const aksesLayanan = localStorage.getItem(KEY_LAYANAN) === "true";
+      const aksesKarir = localStorage.getItem(KEY_KARIR) === "true";
+      if (aksesLayanan) {
+        downloadBtn.disabled = true;
+        statusText.textContent = "Akses diblokir karena sudah membuka daftar biaya layanan.";
+      } else if (aksesKarir) {
+        downloadBtn.disabled = true;
+        statusText.textContent = "Anda sudah membuka dokumen sistem gaji sebelumnya.";
+      } else {
+        downloadBtn.disabled = false;
+        statusText.textContent = "";
+      }
+    }
+    updateStatus();
+
+    downloadBtn.addEventListener("click", () => {
+      if (!downloadBtn.disabled) {
+        window.open(LINK_KARIR, "_blank");
+        localStorage.setItem(KEY_KARIR, "true");
+        localStorage.setItem(KEY_LAYANAN, "true");
+        updateStatus();
+        statusText.textContent = "Berhasil dibuka. Akses ke daftar biaya layanan kini terkunci di browser ini.";
+      }
+    });
+
+    adminBtn.onclick = () => { modal.style.display = "flex"; };
+    adminLoginBtn.onclick = () => {
+      if (adminPass.value === ADMIN_PASSWORD) {
+        localStorage.removeItem(KEY_LAYANAN);
+        localStorage.removeItem(KEY_KARIR);
+        updateStatus();
+        alert("Soft reset berhasil. Akses dikembalikan seperti semula.");
+        modal.style.display = "none";
+      } else {
+        adminMsg.textContent = "Password salah.";
+      }
+    };
+    modal.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+  </script>
+</body>
+</html>
