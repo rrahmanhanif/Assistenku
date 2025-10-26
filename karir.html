@@ -4,46 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Karir | Assistenku</title>
+  <link rel="stylesheet" href="style.css">
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <!-- 🔒 META SECURITY -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Referrer-Policy" content="no-referrer-when-downgrade">
   <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
   <meta name="robots" content="index, follow">
-
-  <link rel="stylesheet" href="style.css">
+  <meta name="author" content="Assistenku">
+  <meta name="description" content="Bergabung bersama Assistenku dan jadilah bagian dari tim layanan profesional.">
+  <meta http-equiv="Cache-Control" content="no-store">
 </head>
+
 <body>
   <header>
-    <h1>Karir di Assistenku</h1>
-    <p>Bergabunglah dengan tim profesional kami dan tumbuh bersama.</p>
+    <div class="header-content">
+      <img src="logo.png" alt="Logo Assistenku" class="logo">
+      <h1>Assistenku</h1>
+      <p class="tagline">Melayani Dengan Hati, Membantu Sepenuh Hati</p>
+    </div>
+    <nav>
+      <a href="index.html">Beranda</a>
+      <a href="profil.html">Profil</a>
+      <a href="layanan.html">Layanan</a>
+      <a href="karir.html" class="active">Karir</a>
+      <a href="kontak.html">Kontak</a>
+    </nav>
   </header>
 
-  <nav>
-    <a href="index.html">Beranda</a>
-    <a href="profil.html">Profil</a>
-    <a href="layanan.html">Layanan</a>
-    <a href="karir.html">Karir</a>
-    <a href="kontak.html">Kontak</a>
-  </nav>
-
   <main>
-    <section>
-      <h2>Kesempatan Karir</h2>
-      <p>Kami membuka peluang kerja untuk posisi:</p>
-      <ul>
-        <li>Asisten pribadi</li>
-        <li>Perawat lansia</li>
-        <li>ART dan petugas kebersihan</li>
-        <li>Sopir pribadi</li>
-      </ul>
-      <p>Kirimkan lamaran Anda melalui halaman <a href="kontak.html">Kontak</a>.</p>
-    </section>
+    <h2>Karir di Assistenku</h2>
+    <p>Kami membuka kesempatan bagi Anda yang ingin bekerja secara profesional sebagai asisten pribadi, perawat lansia, ART, babysitter, petugas kebersihan, sopir pribadi, dan pekerja kebun.</p>
+    <p>Silakan kirim lamaran Anda melalui halaman kontak atau email resmi kami untuk proses seleksi.</p>
   </main>
 
   <footer>
-    <p>&copy; 2025 Assistenku. Semua Hak Dilindungi.</p>
+    <p>© 2025 Assistenku. Semua Hak Dilindungi.</p>
   </footer>
+
+  <!-- 🛡️ Skrip Keamanan Ringan -->
+  <script>
+    if (window.top !== window.self) window.top.location = window.self.location;
+    document.addEventListener("contextmenu", e => e.preventDefault());
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("img").forEach(img => {
+        if (!img.src.includes(window.location.hostname)) img.src = "";
+      });
+    });
+  </script>
 </body>
 </html>
