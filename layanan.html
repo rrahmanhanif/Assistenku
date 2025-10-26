@@ -26,7 +26,6 @@
 
   <!-- MAIN CONTENT -->
   <main>
-    <!-- Bagian Layanan -->
     <section class="layanan-section">
       <h2 class="judul-layanan">✨ Layanan Terbaik Kami</h2>
       <p class="deskripsi-layanan">
@@ -39,32 +38,26 @@
           <h3>🩺 Caregiver / Perawat Lansia</h3>
           <p>Memberikan perawatan penuh empati bagi lansia, menjaga kesehatan dan menemani aktivitas harian mereka.</p>
         </div>
-
         <div class="layanan-card">
           <h3>🏠 ART Harian & Bulanan</h3>
           <p>Membantu pekerjaan rumah tangga seperti membersihkan, mencuci, menyetrika, dan menata rumah dengan rapi.</p>
         </div>
-
         <div class="layanan-card">
           <h3>👶 Babysitter</h3>
           <p>Menjaga dan merawat anak-anak dengan kasih sayang, kesabaran, serta tanggung jawab tinggi.</p>
         </div>
-
         <div class="layanan-card">
           <h3>🧹 Petugas Kebersihan</h3>
           <p>Menangani kebersihan rumah, kantor, maupun tempat usaha dengan hasil maksimal dan profesional.</p>
         </div>
-
         <div class="layanan-card">
           <h3>🌿 Tukang Kebun</h3>
           <p>Merawat taman, menata tanaman, serta menjaga keindahan lingkungan agar tetap segar dan nyaman dipandang.</p>
         </div>
-
         <div class="layanan-card">
           <h3>🛍️ Penjaga Toko / Booth</h3>
           <p>Menjaga toko dan melayani pelanggan dengan sopan serta menjaga area usaha tetap tertata rapi.</p>
         </div>
-
         <div class="layanan-card">
           <h3>🚗 Sopir Pribadi</h3>
           <p>Mengantarkan Anda ke berbagai tujuan dengan aman, sopan, dan tepat waktu.</p>
@@ -72,7 +65,6 @@
       </div>
     </section>
 
-    <!-- Bagian Dokumen -->
     <section class="dokumen-section">
       <h2>📄 Daftar Biaya & Formulir Layanan</h2>
       <p>
@@ -92,19 +84,15 @@
   <!-- FOOTER -->
   <footer>
     <p>© 2025 Assistenku. Semua Hak Dilindungi.</p>
-    <button id="adminKey" title="Admin">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M12 2a5 5 0 0 1 4.9 6.09l4.15 4.15a1 1 0 0 1 0 1.42l-1.83 1.83a1 1 0 0 1-1.41 0L17 14.41l-2 2V18a1 1 0 0 1-1 1H13v-1a1 1 0 0 1-1-1v-2.59l-2-2-1.83 1.83a1 1 0 0 1-1.41 0L4 13.66a1 1 0 0 1 0-1.41L8.15 8.1A5 5 0 0 1 12 2zm0 2a3 3 0 1 0 2.83 4A3 3 0 0 0 12 4z"/>
-      </svg>
-    </button>
+    <button class="btn-admin" id="adminKey">Login Admin</button>
   </footer>
 
-  <!-- MODAL ADMIN -->
+  <!-- MODAL LOGIN ADMIN -->
   <div id="adminModal" class="modal">
     <div class="modal-content">
       <h3>Login Admin</h3>
       <input id="adminPass" type="password" placeholder="Masukkan Password">
-      <button id="adminLoginBtn">Masuk</button>
+      <button id="adminLoginBtn" class="btn-admin">Masuk</button>
       <p id="adminMsg" style="font-size:12px; color:red;"></p>
     </div>
   </div>
@@ -120,11 +108,6 @@
     const downloadBtn = document.getElementById("downloadLayanan");
     const downloadFormulir = document.getElementById("downloadFormulir");
     const statusText = document.getElementById("statusLayanan");
-    const adminBtn = document.getElementById("adminKey");
-    const modal = document.getElementById("adminModal");
-    const adminPass = document.getElementById("adminPass");
-    const adminLoginBtn = document.getElementById("adminLoginBtn");
-    const adminMsg = document.getElementById("adminMsg");
 
     function updateStatus() {
       const aksesLayanan = localStorage.getItem(KEY_LAYANAN) === "true";
@@ -142,7 +125,7 @@
     }
     updateStatus();
 
-    downloadBtn.addEventListener("click", () => {
+    downloadBtn.onclick = () => {
       if (!downloadBtn.disabled) {
         window.open(LINK_LAYANAN, "_blank");
         localStorage.setItem(KEY_LAYANAN, "true");
@@ -150,26 +133,30 @@
         updateStatus();
         statusText.textContent = "Berhasil dibuka. Akses ke sistem gaji kini terkunci di browser ini.";
       }
-    });
+    };
+    downloadFormulir.onclick = () => window.open(LINK_FORMULIR, "_blank");
 
-    downloadFormulir.addEventListener("click", () => {
-      window.open(LINK_FORMULIR, "_blank");
-    });
+    // ===== LOGIN ADMIN =====
+    const adminBtn = document.getElementById("adminKey");
+    const modal = document.getElementById("adminModal");
+    const adminPass = document.getElementById("adminPass");
+    const adminLoginBtn = document.getElementById("adminLoginBtn");
+    const adminMsg = document.getElementById("adminMsg");
 
     adminBtn.onclick = () => { modal.style.display = "flex"; };
     adminLoginBtn.onclick = () => {
       if (adminPass.value === ADMIN_PASSWORD) {
         localStorage.removeItem(KEY_LAYANAN);
         localStorage.removeItem(KEY_KARIR);
-        updateStatus();
-        alert("Soft reset berhasil. Akses dikembalikan seperti semula.");
+        alert("✅ Soft reset berhasil. Akses dikembalikan seperti semula.");
         modal.style.display = "none";
+        adminPass.value = "";
+        adminMsg.textContent = "";
       } else {
         adminMsg.textContent = "Password salah.";
       }
     };
     modal.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
   </script>
-
 </body>
 </html>
