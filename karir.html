@@ -5,6 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Karir | Assistenku</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Gaya tambahan untuk bagian lowongan */
+    .job-section img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      cursor: zoom-in;
+      transition: transform 0.3s ease;
+    }
+    .job-section img:hover {
+      transform: scale(1.02);
+    }
+    /* Modal zoom gambar */
+    #imgModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+    }
+    #imgModal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -23,10 +51,21 @@
   </header>
 
   <main>
-    <h2>Sistem Gaji dan Karir</h2>
-    <p>Klik tombol di bawah ini untuk melihat dokumen sistem gaji. Setelah membuka dokumen ini, akses ke <strong>Daftar Biaya Layanan</strong> akan dikunci permanen di browser ini.</p>
-    <button id="downloadKarir" class="btn">Lihat Sistem Gaji</button>
-    <p id="statusKarir" style="margin-top:10px; color:#555;"></p>
+    <!-- Bagian Lowongan -->
+    <section class="job-section">
+      <h2>Lowongan Tersedia</h2>
+      <p>Berikut informasi lowongan terbaru yang saat ini dibutuhkan oleh Assistenku:</p>
+      <img src="infolowker1.png" alt="Lowongan Tersedia" id="jobImage">
+      <p style="color:#555; font-size:0.9rem;">Klik gambar untuk memperbesar tampilan.</p>
+    </section>
+
+    <!-- Bagian Sistem Gaji -->
+    <section class="salary-section" style="margin-top:40px;">
+      <h2>Sistem Gaji dan Karir</h2>
+      <p>Klik tombol di bawah ini untuk melihat dokumen sistem gaji. Setelah membuka dokumen ini, akses ke <strong>Daftar Biaya Layanan</strong> akan dikunci permanen di browser ini.</p>
+      <button id="downloadKarir" class="btn">Lihat Sistem Gaji</button>
+      <p id="statusKarir" style="margin-top:10px; color:#555;"></p>
+    </section>
   </main>
 
   <footer>
@@ -35,6 +74,11 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a5 5 0 0 1 4.9 6.09l4.15 4.15a1 1 0 0 1 0 1.42l-1.83 1.83a1 1 0 0 1-1.41 0L17 14.41l-2 2V18a1 1 0 0 1-1 1H13v-1a1 1 0 0 1-1-1v-2.59l-2-2-1.83 1.83a1 1 0 0 1-1.41 0L4 13.66a1 1 0 0 1 0-1.41L8.15 8.1A5 5 0 0 1 12 2zm0 2a3 3 0 1 0 2.83 4A3 3 0 0 0 12 4z"/></svg>
     </button>
   </footer>
+
+  <!-- Modal Zoom Gambar -->
+  <div id="imgModal">
+    <img id="zoomedImg" src="" alt="Zoomed Lowongan">
+  </div>
 
   <!-- Modal Admin -->
   <div id="adminModal" class="modal">
@@ -99,6 +143,17 @@
       }
     };
     modal.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+
+    // Zoom gambar
+    const img = document.getElementById("jobImage");
+    const imgModal = document.getElementById("imgModal");
+    const zoomedImg = document.getElementById("zoomedImg");
+
+    img.onclick = () => {
+      zoomedImg.src = img.src;
+      imgModal.style.display = "flex";
+    };
+    imgModal.onclick = () => imgModal.style.display = "none";
   </script>
 </body>
 </html>
