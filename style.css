@@ -1,202 +1,173 @@
-/* ======== STYLE.CSS UNTUK SEMUA HALAMAN ASSISTENKU ======== */
+/* 🌊 ASSISTENKU GLOBAL STYLE 2025 */
+/* Font dan warna lembut untuk tampilan nyaman di mata */
 
-/* Tampilan dasar */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
-  padding: 0;
-  background-color: #f0f6ff;
+  background-color: #f9fcff;
   color: #222;
+  line-height: 1.6;
 }
 
-/* Header */
+/* ===== HEADER ===== */
 header {
-  background-color: #007bff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #2196f3;
   color: white;
   text-align: center;
-  padding: 20px 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
 }
 
-.header-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+header .header-content {
+  padding: 16px 10px 10px 10px;
 }
 
 .logo {
-  width: 100px;
-  height: auto;
-  margin-bottom: 10px;
+  width: 80px;
+  display: block;
+  margin: 0 auto 8px auto;
 }
 
-h1 {
-  margin: 5px 0;
-  font-size: 2em;
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
 }
 
-.tagline {
+header .tagline {
   font-style: italic;
-  text-align: center;
-  margin: 5px 0;
+  font-size: 1rem;
+  margin-top: 4px;
 }
 
-/* Navigasi */
+/* ===== NAVIGATION ===== */
 nav {
-  display: flex;
-  justify-content: center;
-  background-color: #0056b3;
-  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
 }
 
 nav a {
   color: white;
   text-decoration: none;
-  padding: 12px 20px;
-  display: inline-block;
-  transition: background-color 0.3s;
+  margin: 0 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 nav a:hover {
-  background-color: #004494;
+  color: #e3f2fd;
+  text-decoration: underline;
 }
 
 nav a.active {
-  background-color: #003d82;
+  text-decoration: underline;
 }
 
-/* Konten utama */
+/* ===== MAIN CONTENT ===== */
 main {
-  padding: 30px 15px;
+  padding: 150px 20px 60px 20px;
   max-width: 900px;
   margin: auto;
-  background-color: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  border-radius: 10px;
+  text-align: center;
 }
 
-section {
-  margin-bottom: 30px;
-}
-
-h2 {
-  color: #0056b3;
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 5px;
-}
-
-p, li {
-  line-height: 1.6;
-  text-align: justify;
-}
-
-/* Tombol umum */
+/* ===== BUTTONS ===== */
 .btn {
   display: inline-block;
-  background-color: #007bff;
+  background-color: #2196f3;
   color: white;
+  border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   text-decoration: none;
-  margin: 10px;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  font-weight: 500;
+  transition: background 0.2s ease;
+  cursor: pointer;
 }
 
 .btn:hover {
-  background-color: #0056b3;
+  background-color: #1976d2;
 }
 
-/* ======== Kotak WhatsApp & Email (Kontak) ======== */
-.contact-box {
-  border: 1px solid #bcd4ff;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px 0;
-  background-color: #e6f0ff;
-  text-align: center;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-}
-
-.contact-box p {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.btn-wa, .btn-email {
-  display: inline-block;
-  padding: 10px 25px;
-  border-radius: 8px;
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s ease;
-}
-
-.btn-wa {
-  background-color: #25d366;
-}
-
-.btn-email {
-  background-color: #ea4335;
-}
-
-.btn-wa:hover {
-  background-color: #1da851;
-}
-
-.btn-email:hover {
-  background-color: #d03426;
-}
-
-/* Kotak konsultasi (digunakan di layanan.html) */
-.konsultasi {
-  background-color: #e6f0ff;
-  border: 1px solid #bcd4ff;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 30px;
-  text-align: center;
-}
-
-/* Footer */
+/* ===== FOOTER ===== */
 footer {
-  background-color: #0056b3;
+  background-color: #2196f3;
   color: white;
   text-align: center;
-  padding: 15px;
-  margin-top: 40px;
-  font-size: 0.9em;
+  padding: 14px;
+  position: relative;
 }
 
-/* Gambar responsif (misalnya logo atau NIB) */
-img {
-  max-width: 100%;
-  height: auto;
+/* ===== ADMIN BUTTON (Layanan & Karir) ===== */
+#adminKey {
+  position: absolute;
+  right: 20px;
+  bottom: 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+#adminKey svg {
+  width: 22px;
+  height: 22px;
+  fill: white;
+  opacity: 0.8;
+}
+
+#adminKey:hover svg {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* ===== MODAL ADMIN ===== */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+.modal-content input {
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
   border-radius: 6px;
+  margin-top: 10px;
 }
 
-/* Responsif di layar kecil */
-@media (max-width: 600px) {
-  nav a {
-    padding: 10px;
-    font-size: 14px;
-  }
+.modal-content button {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2196f3;
+  color: white;
+  cursor: pointer;
+}
 
-  h1 {
-    font-size: 1.6em;
-  }
-
-  main {
-    padding: 20px 10px;
-  }
-
-  .contact-box {
-    padding: 15px;
-  }
-
-  .btn-wa, .btn-email {
-    width: 100%;
-    display: block;
-    margin-top: 10px;
-  }
+.modal-content button:hover {
+  background-color: #1976d2;
 }
