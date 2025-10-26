@@ -4,12 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Karir | Assistenku</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
-    body { font-family: Arial, sans-serif; background-color: #f9fcff; color: #222; }
-    header { background-color: #007bff; color: white; text-align: center; padding: 20px 10px; }
-    nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
+    body { font-family: Arial, sans-serif; background-color: #f9fcff; color: #222; margin: 0; }
+    header {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 25px 10px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+    }
+    header p {
+      margin-top: 5px;
+      font-style: italic;
+      font-size: 1rem;
+      text-align: center;
+    }
+    nav {
+      margin-top: 12px;
+    }
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
     nav a.active { text-decoration: underline; }
+
     .btn {
       display: inline-block;
       background-color: #007bff;
@@ -30,7 +54,7 @@
     .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; }
     .modal { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.25); max-width: 360px; text-align: center; }
 
-    /* Kotak admin kecil (pojok) */
+    /* Kotak admin kecil */
     #adminBox {
       position: fixed; right: 12px; bottom: 12px; width: 220px;
       background: rgba(255,255,255,0.95); border: 1px solid #ccc; border-radius: 8px;
@@ -81,8 +105,8 @@
     </div>
   </div>
 
-  <!-- Kotak Admin Kecil -->
-  <div id="adminBox" aria-hidden="false">
+  <!-- Kotak Admin -->
+  <div id="adminBox">
     <h4>Admin (Soft Reset)</h4>
     <input id="adminPass" type="password" placeholder="Masukkan password admin" />
     <button id="adminAuthBtn">Login Admin</button>
@@ -92,37 +116,28 @@
   </div>
 
   <script>
-    // Konfigurasi link PDF karir
     const LINK_KARIR = "https://drive.google.com/file/d/1dlXn4orWS12ZJnPsl3wk6T8OhudTl68k/view?usp=drive_link";
+    const KEY_LAYANAN = "akses_layanan";
+    const KEY_KARIR = "akses_karir";
+    const ADMIN_PASSWORD = "Hanif@123";
 
-    // Elemen UI
     const downloadBtn = document.getElementById("downloadKarir");
     const statusText = document.getElementById("statusKarir");
     const modal = document.getElementById("confirmModal");
     const yesBtn = document.getElementById("confirmYes");
     const cancelBtn = document.getElementById("confirmCancel");
-
-    // Admin UI
-    const adminBox = document.getElementById("adminBox");
     const adminPass = document.getElementById("adminPass");
     const adminAuthBtn = document.getElementById("adminAuthBtn");
     const adminResetBtn = document.getElementById("adminResetBtn");
     const adminLogoutBtn = document.getElementById("adminLogoutBtn");
     const adminMsg = document.getElementById("adminMsg");
-    const ADMIN_PASSWORD = "Hanif@123";
 
-    // Keys localStorage
-    const KEY_LAYANAN = "akses_layanan";
-    const KEY_KARIR = "akses_karir";
-
-    // Cek status akses pada load
     function updateStatus() {
       const aksesLayanan = localStorage.getItem(KEY_LAYANAN) === "true";
       const aksesKarir = localStorage.getItem(KEY_KARIR) === "true";
-
       if (aksesLayanan) {
         downloadBtn.disabled = true;
-        statusText.textContent = "Akses diblokir karena Anda sudah membuka daftar biaya layanan.";
+        statusText.textContent = "Akses diblokir karena sudah membuka daftar biaya layanan.";
       } else if (aksesKarir) {
         downloadBtn.disabled = true;
         statusText.textContent = "Anda sudah membuka dokumen sistem gaji sebelumnya.";
@@ -132,88 +147,50 @@
       }
     }
     updateStatus();
-    window.addEventListener("storage", updateStatus);
 
-    // Tombol download: tampilkan modal konfirmasi
     downloadBtn.addEventListener("click", () => {
-      if (downloadBtn.disabled) return;
-      modal.style.display = "flex";
+      if (!downloadBtn.disabled) modal.style.display = "flex";
     });
-
-    cancelBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
-
+    cancelBtn.addEventListener("click", () => modal.style.display = "none");
     yesBtn.addEventListener("click", () => {
-      // buka link
       window.open(LINK_KARIR, "_blank");
-
-      // set flags silang
       localStorage.setItem(KEY_KARIR, "true");
       localStorage.setItem(KEY_LAYANAN, "true");
-
       modal.style.display = "none";
       updateStatus();
       statusText.textContent = "Berhasil dibuka. Akses ke daftar biaya layanan kini terkunci di browser ini.";
     });
 
-    // --- Admin: Otentikasi sederhana ---
-    function setAdminAuthenticated(val) {
-      if (val) {
-        sessionStorage.setItem("admin_authenticated", "true");
-      } else {
-        sessionStorage.removeItem("admin_authenticated");
-      }
-      updateAdminUI();
-    }
-
-    function isAdminAuthenticated() {
-      return sessionStorage.getItem("admin_authenticated") === "true";
-    }
-
+    function isAdmin() { return sessionStorage.getItem("admin") === "true"; }
     function updateAdminUI() {
-      if (isAdminAuthenticated()) {
-        adminPass.style.display = "none";
-        adminAuthBtn.style.display = "none";
-        adminResetBtn.style.display = "block";
-        adminLogoutBtn.style.display = "block";
-        adminMsg.textContent = "Admin aktif.";
-      } else {
-        adminPass.style.display = "block";
-        adminAuthBtn.style.display = "block";
-        adminResetBtn.style.display = "none";
-        adminLogoutBtn.style.display = "none";
-        adminMsg.textContent = "";
-      }
+      const logged = isAdmin();
+      adminPass.style.display = logged ? "none" : "block";
+      adminAuthBtn.style.display = logged ? "none" : "block";
+      adminResetBtn.style.display = logged ? "block" : "none";
+      adminLogoutBtn.style.display = logged ? "block" : "none";
+      adminMsg.textContent = logged ? "Admin aktif." : "";
     }
-
-    adminAuthBtn.addEventListener("click", () => {
-      const p = adminPass.value || "";
-      if (p === ADMIN_PASSWORD) {
-        setAdminAuthenticated(true);
-        adminPass.value = "";
-        alert("Login admin berhasil. Tombol Reset Akses tersedia.");
-      } else {
-        adminMsg.textContent = "Password salah.";
-        adminMsg.style.color = "red";
+    adminAuthBtn.onclick = () => {
+      if (adminPass.value === ADMIN_PASSWORD) {
+        sessionStorage.setItem("admin", "true");
+        updateAdminUI();
+        alert("Login admin berhasil!");
+      } else { adminMsg.textContent = "Password salah."; adminMsg.style.color = "red"; }
+    };
+    adminLogoutBtn.onclick = () => {
+      sessionStorage.removeItem("admin");
+      updateAdminUI();
+      alert("Logout berhasil.");
+    };
+    adminResetBtn.onclick = () => {
+      if (!isAdmin()) return;
+      if (confirm("Reset semua kunci akses di browser ini?")) {
+        localStorage.removeItem(KEY_LAYANAN);
+        localStorage.removeItem(KEY_KARIR);
+        updateStatus();
+        alert("Soft reset selesai. Akses dikembalikan seperti semula.");
       }
-    });
-
-    adminLogoutBtn.addEventListener("click", () => {
-      setAdminAuthenticated(false);
-      alert("Logout admin berhasil.");
-    });
-
-    adminResetBtn.addEventListener("click", () => {
-      if (!isAdminAuthenticated()) return;
-      if (!confirm("Reset semua kunci akses di browser ini? (tidak bisa dibatalkan)")) return;
-      localStorage.removeItem(KEY_LAYANAN);
-      localStorage.removeItem(KEY_KARIR);
-      updateStatus();
-      alert("Soft reset selesai. Akses dokumen telah dikembalikan seperti semula.");
-    });
-
-    // inisialisasi admin UI pada load
+    };
     updateAdminUI();
   </script>
 </body>
