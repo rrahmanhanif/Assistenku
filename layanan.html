@@ -5,6 +5,164 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Layanan | Assistenku</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background-color: #0077b6;
+      color: #fff;
+      padding: 15px 0;
+      text-align: center;
+    }
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+    .logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+    nav {
+      background-color: #0096c7;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      transition: background 0.3s;
+    }
+    nav a:hover,
+    nav a.active {
+      background-color: #00b4d8;
+      border-radius: 4px;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      padding: 25px;
+    }
+    main h2 {
+      color: #0077b6;
+      border-bottom: 2px solid #00b4d8;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      line-height: 1.8;
+    }
+    ul li {
+      margin-bottom: 10px;
+      background: #f1f9ff;
+      padding: 10px 15px;
+      border-left: 5px solid #00b4d8;
+      border-radius: 6px;
+    }
+    .btn {
+      background-color: #00b4d8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 20px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .btn:hover {
+      background-color: #0096c7;
+      transform: scale(1.03);
+    }
+    .btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+    #statusLayanan {
+      margin-top: 12px;
+      color: #444;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px 10px;
+      background: #0077b6;
+      color: white;
+      margin-top: 40px;
+      position: relative;
+    }
+    #adminKey {
+      position: absolute;
+      right: 20px;
+      bottom: 15px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 28px;
+      height: 28px;
+    }
+    #adminKey svg {
+      fill: white;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px 25px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 350px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .modal-content button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -24,26 +182,26 @@
 
   <main>
     <h2>Daftar Layanan Kami</h2>
-    <p>Assistenku menyediakan berbagai layanan profesional untuk membantu kebutuhan Anda sehari-hari, antara lain:</p>
+    <p>Assistenku menyediakan tenaga profesional yang siap membantu kebutuhan Anda dalam berbagai bidang:</p>
     <ul>
-      <li><strong>Caregiver / Perawat Lansia:</strong> Merawat dan mendampingi lansia dengan penuh kesabaran dan perhatian.</li>
-      <li><strong>ART Harian & Bulanan:</strong> Membantu pekerjaan rumah tangga seperti membersihkan, mencuci, dan menata rumah.</li>
-      <li><strong>Babysitter:</strong> Menjaga serta merawat anak-anak dengan tanggung jawab dan kasih sayang.</li>
-      <li><strong>Petugas Kebersihan:</strong> Membersihkan area rumah, kantor, atau tempat usaha secara profesional.</li>
-      <li><strong>Tukang Kebun:</strong> Merawat taman, memotong rumput, dan menjaga keindahan lingkungan sekitar.</li>
-      <li><strong>Penjaga Toko / Stand Booth:</strong> Membantu menjaga, melayani pembeli, serta mengatur area dagang Anda.</li>
-      <li><strong>Sopir Pribadi:</strong> Menyediakan layanan antar jemput dengan sopan, aman, dan tepat waktu.</li>
+      <li><strong>Caregiver / Perawat Lansia:</strong> Merawat dan mendampingi lansia dengan penuh kesabaran serta perhatian.</li>
+      <li><strong>ART Harian & Bulanan:</strong> Membantu pekerjaan rumah tangga seperti membersihkan, mencuci, menata rumah, dan memasak.</li>
+      <li><strong>Babysitter:</strong> Menjaga serta merawat anak-anak dengan penuh tanggung jawab dan kasih sayang.</li>
+      <li><strong>Petugas Kebersihan:</strong> Menjaga kebersihan rumah, kantor, atau tempat usaha Anda secara menyeluruh.</li>
+      <li><strong>Tukang Kebun:</strong> Merawat taman, menanam, dan menjaga keindahan lingkungan hijau Anda.</li>
+      <li><strong>Penjaga Toko / Stand Booth:</strong> Membantu menjaga area jualan, melayani pembeli, dan mengatur stok barang.</li>
+      <li><strong>Sopir Pribadi:</strong> Menyediakan layanan antar-jemput pribadi dengan ramah, aman, dan tepat waktu.</li>
     </ul>
 
-    <h2>Daftar Biaya dan Formulir Layanan</h2>
+    <h2>Daftar Biaya & Formulir Layanan</h2>
     <p>Klik tombol di bawah ini untuk membuka daftar biaya layanan kami. Setelah Anda membuka dokumen ini, akses ke <strong>Sistem Gaji</strong> pada halaman Karir akan dikunci permanen di browser ini.</p>
     
-    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <button id="downloadLayanan" class="btn">Unduh Daftar Biaya Layanan</button>
-      <button id="downloadFormulir" class="btn">Unduh Formulir Layanan</button>
+    <div class="btn-group">
+      <button id="downloadLayanan" class="btn">📄 Unduh Daftar Biaya Layanan</button>
+      <button id="downloadFormulir" class="btn" style="background-color:#0077b6;">📝 Unduh Formulir Layanan</button>
     </div>
 
-    <p id="statusLayanan" style="margin-top:10px; color:#555;"></p>
+    <p id="statusLayanan"></p>
   </main>
 
   <footer>
@@ -58,7 +216,7 @@
     <div class="modal-content">
       <h3>Login Admin</h3>
       <input id="adminPass" type="password" placeholder="Masukkan Password">
-      <button id="adminLoginBtn">Masuk</button>
+      <button id="adminLoginBtn" class="btn">Masuk</button>
       <p id="adminMsg" style="font-size:12px; color:red;"></p>
     </div>
   </div>
@@ -84,10 +242,10 @@
       const aksesKarir = localStorage.getItem(KEY_KARIR) === "true";
       if (aksesKarir) {
         downloadBtn.disabled = true;
-        statusText.textContent = "Akses diblokir karena sudah membuka dokumen sistem gaji (Karir).";
+        statusText.textContent = "⚠️ Akses diblokir karena sudah membuka dokumen sistem gaji (Karir).";
       } else if (aksesLayanan) {
         downloadBtn.disabled = true;
-        statusText.textContent = "Anda sudah membuka daftar biaya layanan sebelumnya.";
+        statusText.textContent = "ℹ️ Anda sudah membuka daftar biaya layanan sebelumnya.";
       } else {
         downloadBtn.disabled = false;
         statusText.textContent = "";
@@ -101,7 +259,7 @@
         localStorage.setItem(KEY_LAYANAN, "true");
         localStorage.setItem(KEY_KARIR, "true");
         updateStatus();
-        statusText.textContent = "Berhasil dibuka. Akses ke sistem gaji kini terkunci di browser ini.";
+        statusText.textContent = "✅ Berhasil dibuka. Akses ke sistem gaji kini terkunci di browser ini.";
       }
     });
 
