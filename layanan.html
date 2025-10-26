@@ -23,9 +23,26 @@
   </header>
 
   <main>
-    <h2>Daftar Biaya Layanan</h2>
+    <h2>Daftar Layanan Kami</h2>
+    <p>Assistenku menyediakan berbagai layanan profesional untuk membantu kebutuhan Anda sehari-hari, antara lain:</p>
+    <ul>
+      <li><strong>Caregiver / Perawat Lansia:</strong> Merawat dan mendampingi lansia dengan penuh kesabaran dan perhatian.</li>
+      <li><strong>ART Harian & Bulanan:</strong> Membantu pekerjaan rumah tangga seperti membersihkan, mencuci, dan menata rumah.</li>
+      <li><strong>Babysitter:</strong> Menjaga serta merawat anak-anak dengan tanggung jawab dan kasih sayang.</li>
+      <li><strong>Petugas Kebersihan:</strong> Membersihkan area rumah, kantor, atau tempat usaha secara profesional.</li>
+      <li><strong>Tukang Kebun:</strong> Merawat taman, memotong rumput, dan menjaga keindahan lingkungan sekitar.</li>
+      <li><strong>Penjaga Toko / Stand Booth:</strong> Membantu menjaga, melayani pembeli, serta mengatur area dagang Anda.</li>
+      <li><strong>Sopir Pribadi:</strong> Menyediakan layanan antar jemput dengan sopan, aman, dan tepat waktu.</li>
+    </ul>
+
+    <h2>Daftar Biaya dan Formulir Layanan</h2>
     <p>Klik tombol di bawah ini untuk membuka daftar biaya layanan kami. Setelah Anda membuka dokumen ini, akses ke <strong>Sistem Gaji</strong> pada halaman Karir akan dikunci permanen di browser ini.</p>
-    <button id="downloadLayanan" class="btn">Unduh Daftar Biaya Layanan</button>
+    
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <button id="downloadLayanan" class="btn">Unduh Daftar Biaya Layanan</button>
+      <button id="downloadFormulir" class="btn">Unduh Formulir Layanan</button>
+    </div>
+
     <p id="statusLayanan" style="margin-top:10px; color:#555;"></p>
   </main>
 
@@ -48,11 +65,13 @@
 
   <script>
     const LINK_LAYANAN = "https://drive.google.com/file/d/1IlsMLZmoG-dQso164iUSP8Dw_Z-VCNtZ/view?usp=drive_link";
+    const LINK_FORMULIR = "https://drive.google.com/file/d/1tnE7hzjXsBj_hZajnLzVr3GnpgGNm4Zm/view?usp=drivesdk";
     const KEY_LAYANAN = "akses_layanan";
     const KEY_KARIR = "akses_karir";
     const ADMIN_PASSWORD = "Hanif@123";
 
     const downloadBtn = document.getElementById("downloadLayanan");
+    const downloadFormulir = document.getElementById("downloadFormulir");
     const statusText = document.getElementById("statusLayanan");
     const adminBtn = document.getElementById("adminKey");
     const modal = document.getElementById("adminModal");
@@ -84,6 +103,10 @@
         updateStatus();
         statusText.textContent = "Berhasil dibuka. Akses ke sistem gaji kini terkunci di browser ini.";
       }
+    });
+
+    downloadFormulir.addEventListener("click", () => {
+      window.open(LINK_FORMULIR, "_blank");
     });
 
     adminBtn.onclick = () => { modal.style.display = "flex"; };
