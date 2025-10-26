@@ -1,5 +1,6 @@
 /* ===========================
    STYLE.CSS - Assistenku 2025
+   Responsive & Clean Version
    =========================== */
 
 /* === RESET DASAR === */
@@ -13,14 +14,14 @@
 
 /* === WARNA UTAMA === */
 :root {
-  --primary: #1e90ff;      /* Biru lembut */
-  --primary-dark: #176fd1; /* Biru gelap elegan */
+  --primary: #1e90ff;       /* Biru utama */
+  --primary-dark: #176fd1;  /* Biru gelap */
   --background: #ffffff;
   --text: #333;
   --shadow: rgba(0, 0, 0, 0.1);
 }
 
-/* === HEADER === */
+/* === HEADER (LOGO + TAGLINE) === */
 header {
   position: fixed;
   top: 0;
@@ -35,18 +36,18 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px 0 10px 0;
+  padding: 12px 0;
 }
 
 .logo {
-  width: 180px;
+  width: 170px;
   height: auto;
   object-fit: contain;
   margin-bottom: 5px;
 }
 
 header h1 {
-  font-size: 28px;
+  font-size: 26px;
   color: var(--primary-dark);
   font-weight: 600;
 }
@@ -54,26 +55,28 @@ header h1 {
 .tagline {
   font-size: 14px;
   color: #666;
-  margin-top: 4px;
+  margin-top: 3px;
 }
 
 /* === NAVIGASI === */
 nav {
   display: flex;
   justify-content: center;
+  align-items: center;
   background: var(--primary);
   position: sticky;
   top: 0;
   z-index: 999;
+  padding: 6px 0;
 }
 
 nav a {
   color: white;
-  padding: 14px 22px;
+  padding: 10px 18px;
   text-decoration: none;
   font-weight: 500;
   border-radius: 8px;
-  margin: 8px 6px;
+  margin: 6px;
   transition: all 0.3s ease;
 }
 
@@ -94,19 +97,19 @@ nav a.active {
 /* === KONTEN UTAMA === */
 main {
   max-width: 900px;
-  margin: 180px auto 80px auto;
-  padding: 0 25px;
+  margin: 210px auto 80px auto; /* Pastikan tidak tertutup header/nav */
+  padding: 0 24px;
   color: var(--text);
   line-height: 1.8;
   animation: fadeIn 0.8s ease;
 }
 
 @keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
+  from {opacity: 0; transform: translateY(15px);}
   to {opacity: 1; transform: translateY(0);}
 }
 
-/* === CARD LAYANAN === */
+/* === GRID LAYANAN === */
 .layanan-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -134,7 +137,8 @@ main {
 }
 
 /* === TOMBOL UMUM === */
-.btn, .btn-admin {
+.btn,
+.btn-admin {
   border: none;
   padding: 10px 18px;
   border-radius: 25px;
@@ -251,16 +255,35 @@ footer p {
   transform: scale(1.05);
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 22px;
-  }
+/* === RESPONSIVE MOBILE === */
+@media (max-width: 768px) {
   .logo {
     width: 140px;
   }
+
+  header h1 {
+    font-size: 22px;
+  }
+
   nav a {
-    padding: 10px 16px;
-    margin: 5px 3px;
+    padding: 8px 14px;
+    margin: 4px;
+    font-size: 14px;
   }
+
+  main {
+    margin-top: 180px; /* lebih pendek di layar kecil */
+    padding: 0 18px;
   }
+
+  footer {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .btn-admin {
+    width: 100%;
+    max-width: 160px;
+  }
+   }
