@@ -5,6 +5,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kontak | Assistenku</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Gaya tambahan khusus untuk halaman kontak */
+    .contact-section {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .contact-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .contact-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 280px;
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .contact-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .contact-card h3 {
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .contact-card p {
+      color: #333;
+      font-size: 15px;
+    }
+
+    .contact-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    a.contact-card-link {
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -22,11 +73,29 @@
     </nav>
   </header>
 
-  <main>
+  <main class="contact-section">
     <h2>Hubungi Kami</h2>
-    <p>Jika Anda membutuhkan layanan atau informasi lebih lanjut, silakan hubungi kami melalui:</p>
-    <p>📞 WhatsApp: <a href="https://wa.me/628989160020" target="_blank">Chat Sekarang</a></p>
-    <p>📧 Email: info@assistenku.id</p>
+    <p>Silakan pilih cara termudah untuk menghubungi kami:</p>
+
+    <div class="contact-cards">
+      <!-- WhatsApp -->
+      <a href="https://wa.me/628989760020" target="_blank" class="contact-card-link">
+        <div class="contact-card">
+          <div class="contact-icon">💬</div>
+          <h3>WhatsApp</h3>
+          <p>Klik untuk chat langsung dengan tim Assistenku melalui WhatsApp.</p>
+        </div>
+      </a>
+
+      <!-- Email -->
+      <a href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJvpbJbjKJnhWQCbsDtqkPldKRSpVfLHQXwdXCdwCTfBFZxKLDVDHnXkbfCQlPJGzbbLXWg" target="_blank" class="contact-card-link">
+        <div class="contact-card">
+          <div class="contact-icon">📧</div>
+          <h3>Email</h3>
+          <p>Klik untuk langsung menulis email kepada kami melalui Gmail.</p>
+        </div>
+      </a>
+    </div>
   </main>
 
   <footer>
