@@ -1,308 +1,97 @@
-/* =========================================
-   STYLE.CSS — Assistenku
-   Tampilan modern, rapi, dan responsif
-   ========================================= */
-
-/* RESET DASAR */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-body {
-  background: #f9fafc;
-  color: #333;
-  line-height: 1.6;
-}
-
-/* =========================================
-   HEADER
-   ========================================= */
+/* ====== Header ====== */
 header {
-  background: #1a73e8;
-  color: #fff;
   text-align: center;
-  padding: 20px 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 0;
+  background-color: #f8f8f8;
 }
 
-.header-content .logo {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%; /* Membuat logo bulat */
+  object-fit: cover;
   margin-bottom: 10px;
 }
 
-.header-content h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-
 .tagline {
-  font-size: 0.95rem;
-  opacity: 0.9;
+  font-size: 14px;
+  color: #666;
+  text-align: center; /* Tagline di tengah */
+  margin-top: 5px;
 }
 
-/* =========================================
-   NAVIGASI
-   ========================================= */
+/* ====== Navigasi ====== */
 nav {
-  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  background-color: #333;
 }
 
 nav a {
-  color: #fff;
+  color: white;
+  padding: 14px 20px;
   text-decoration: none;
-  margin: 0 10px;
-  padding: 6px 12px;
-  font-weight: 500;
-  border-radius: 6px;
-  transition: all 0.3s ease;
+  display: block;
 }
 
 nav a:hover,
 nav a.active {
-  background: #fff;
-  color: #1a73e8;
+  background-color: #555;
 }
 
-/* =========================================
-   MAIN CONTENT
-   ========================================= */
+/* ====== Konten Utama ====== */
 main {
-  max-width: 900px;
-  margin: 40px auto;
+  max-width: 800px;
+  margin: 30px auto;
   padding: 0 20px;
+  line-height: 1.6;
 }
 
-/* Bagian Judul */
-h2 {
+/* ====== Founder Section ====== */
+.founder {
+  margin-top: 40px;
   text-align: center;
-  color: #1a73e8;
-  font-size: 1.6rem;
+}
+
+.founder h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.founder p {
+  font-size: 16px;
   margin-bottom: 20px;
-}
-
-p {
-  text-align: justify;
-  margin-bottom: 15px;
-}
-
-/* =========================================
-   BAGIAN LAYANAN
-   ========================================= */
-.layanan-section {
-  background: #fff;
-  border-radius: 12px;
-  padding: 30px 25px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  margin-bottom: 40px;
-}
-
-.deskripsi-layanan {
-  text-align: center;
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.layanan-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.layanan-card {
-  background: #f8fbff;
-  border-radius: 10px;
-  padding: 20px;
-  border: 1px solid #e0e8f8;
-  transition: all 0.3s ease;
-  cursor: default;
-}
-
-.layanan-card:hover {
-  background: #e9f2ff;
-  transform: translateY(-5px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
-}
-
-.layanan-card h3 {
-  color: #1a73e8;
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-}
-
-.layanan-card p {
-  font-size: 0.95rem;
   color: #555;
 }
 
-/* =========================================
-   BAGIAN DOKUMEN
-   ========================================= */
-.dokumen-section {
-  background: #fff;
-  border-radius: 12px;
-  padding: 30px 25px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.dokumen-section p {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
-.btn-container {
+.nib-images {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 15px;
 }
 
-.btn {
-  padding: 12px 22px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
+.nib {
+  width: 250px;
+  height: auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.btn.anim-btn {
-  background: linear-gradient(45deg, #1a73e8, #4dabf7);
-  color: white;
-  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
-}
-
-.btn.anim-btn:hover {
-  background: linear-gradient(45deg, #0b63d1, #3aa3f5);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(26, 115, 232, 0.4);
-}
-
-.btn.anim-btn.secondary {
-  background: linear-gradient(45deg, #28a745, #5dd95d);
-  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
-}
-
-.btn.anim-btn.secondary:hover {
-  background: linear-gradient(45deg, #218838, #46c846);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
-}
-
-.status-text {
-  text-align: center;
-  color: #555;
-  font-size: 0.95rem;
-  margin-top: 15px;
-}
-
-/* =========================================
-   FOOTER
-   ========================================= */
+/* ====== Footer ====== */
 footer {
   text-align: center;
-  background: #1a73e8;
+  background-color: #333;
   color: white;
-  padding: 15px 10px;
+  padding: 15px 0;
   margin-top: 50px;
-  position: relative;
+  font-size: 14px;
 }
-
-#adminKey {
-  position: absolute;
-  right: 20px;
-  bottom: 15px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: white;
-  width: 26px;
-  height: 26px;
-  opacity: 0.8;
-  transition: all 0.3s ease;
-}
-
-#adminKey:hover {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-/* =========================================
-   MODAL ADMIN
-   ========================================= */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: #fff;
-  padding: 25px 30px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  animation: fadeIn 0.4s ease;
-}
-
-.modal-content input {
-  width: 100%;
-  padding: 10px;
-  margin: 15px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
-.modal-content button {
-  background: #1a73e8;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.modal-content button:hover {
-  background: #0f5ccc;
-}
-
-/* =========================================
-   ANIMASI
-   ========================================= */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* =========================================
-   RESPONSIVE
-   ========================================= */
-@media (max-width: 600px) {
-  .header-content h1 {
-    font-size: 1.5rem;
-  }
-
-  .layanan-card {
-    padding: 15px;
-  }
-
-  .btn {
-    width: 100%;
-  }
-
-  footer {
-    font-size: 0.85rem;
-  }
-  }
