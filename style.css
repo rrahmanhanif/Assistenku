@@ -1,173 +1,68 @@
-/* 🌊 ASSISTENKU GLOBAL STYLE 2025 */
-/* Font dan warna lembut untuk tampilan nyaman di mata */
+/* ======== STYLE.CSS AMAN UNTUK ASSISTENKU ======== */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+/* Dasar umum */
+* {
+  box-sizing: border-box;
+}
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
-  background-color: #f9fcff;
+  padding: 0;
+  background-color: #f0f6ff;
   color: #222;
-  line-height: 1.6;
+  image-rendering: auto;
 }
 
-/* ===== HEADER ===== */
+/* Header */
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #2196f3;
+  background-color: #007bff;
   color: white;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  padding: 20px 10px;
 }
 
-header .header-content {
-  padding: 16px 10px 10px 10px;
-}
-
-.logo {
-  width: 80px;
-  display: block;
-  margin: 0 auto 8px auto;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 600;
-}
-
-header .tagline {
-  font-style: italic;
-  font-size: 1rem;
-  margin-top: 4px;
-}
-
-/* ===== NAVIGATION ===== */
+/* Navigasi */
 nav {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(4px);
-  padding: 10px 0;
-  position: sticky;
-  top: 0;
+  display: flex;
+  justify-content: center;
+  background-color: #0056b3;
 }
 
 nav a {
   color: white;
   text-decoration: none;
-  margin: 0 12px;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  padding: 12px 18px;
+  display: inline-block;
 }
 
 nav a:hover {
-  color: #e3f2fd;
-  text-decoration: underline;
+  background-color: #003f7f;
 }
 
-nav a.active {
-  text-decoration: underline;
-}
-
-/* ===== MAIN CONTENT ===== */
+/* Konten utama */
 main {
-  padding: 150px 20px 60px 20px;
+  padding: 20px;
   max-width: 900px;
   margin: auto;
-  text-align: center;
 }
 
-/* ===== BUTTONS ===== */
-.btn {
-  display: inline-block;
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background 0.2s ease;
-  cursor: pointer;
+h1, h2 {
+  color: #004080;
 }
 
-.btn:hover {
-  background-color: #1976d2;
-}
-
-/* ===== FOOTER ===== */
+/* Footer */
 footer {
-  background-color: #2196f3;
+  background-color: #007bff;
   color: white;
   text-align: center;
-  padding: 14px;
-  position: relative;
+  padding: 15px;
+  margin-top: 30px;
 }
 
-/* ===== ADMIN BUTTON (Layanan & Karir) ===== */
-#adminKey {
-  position: absolute;
-  right: 20px;
-  bottom: 14px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-#adminKey svg {
-  width: 22px;
-  height: 22px;
-  fill: white;
-  opacity: 0.8;
-}
-
-#adminKey:hover svg {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-/* ===== MODAL ADMIN ===== */
-.modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
-}
-
-.modal-content input {
-  width: 90%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  margin-top: 10px;
-}
-
-.modal-content button {
-  margin-top: 12px;
-  padding: 8px 14px;
-  border: none;
-  border-radius: 6px;
-  background-color: #2196f3;
-  color: white;
-  cursor: pointer;
-}
-
-.modal-content button:hover {
-  background-color: #1976d2;
+/* Mencegah @import dari domain luar */
+@media screen and (max-width: 600px) {
+  nav {
+    flex-direction: column;
+  }
 }
